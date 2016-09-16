@@ -1,0 +1,26 @@
+#!/bin/bash -xe
+containers=$(find * -maxdepth 0 -type d)
+/scripts/agile-dbus-start
+
+# Give DIND persistent storage
+mount -o bind /data /var/lib/docker
+
+# Start docker and services
+if ! docker info &>/dev/null; then
+	wrapdocker echo
+fi
+
+for i in $containers; do
+	docker-compose build $i
+done
+
+docker rm -v $(docker ps -a -q -f status=exited 2>/dev/null) &>/dev/null || :
+docker rmi $(docker images -f "dangling=true" -q 2>/dev/null) &>/dev/null || :
+docker-compose down || :
+docker-compose up &
+
+set +x
+while true; do
+	sleep 5m
+	# keep_alive
+done

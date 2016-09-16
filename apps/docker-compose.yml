@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+    agile-core:
+      image: cskiraly/agile-core-armv7l
+      volumes:
+        - $DBUS_SYSTEM_SOCKET:/var/run/dbus/system_bus_socket
+        - $DBUS_SESSION_SOCKET:/usr/src/app/agile_bus_socket
+      environment:
+        - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/agile_bus_socket
+      ports:
+        - 8081:8081/tcp
+        - 8080:8080/tcp
+      restart: always
+      privileged: true
+
+    ui:
+      build: ui
+      ports:
+        - $AGILE_CLIENT_PORT:$AGILE_CLIENT_PORT

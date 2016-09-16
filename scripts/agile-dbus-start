@@ -1,0 +1,8 @@
+#!/bin/sh
+BINDIR=$(dirname $0)
+
+dbus-daemon \
+  --fork \
+  --print-pid --print-address \
+  --address=unix:path=$DBUS_SESSION_SOCKET \
+  --config-file=$BINDIR/dbus.conf
