@@ -14,7 +14,7 @@ services:
       restart: always
       privileged: true
 
-    ui:
-      build: ui
+    agile-ui:
+      build: agile-ui
       ports:
         - $AGILE_CLIENT_PORT:$AGILE_CLIENT_PORT
