@@ -15,6 +15,9 @@ services:
       privileged: true
 
     agile-ui:
-      build: agile-ui
+      image: craycraig/agile-ui-armv7l
+      environment:
+        - AGILE_CLIENT_PORT=$AGILE_CLIENT_PORT
       ports:
         - $AGILE_CLIENT_PORT:$AGILE_CLIENT_PORT
+      restart: always
