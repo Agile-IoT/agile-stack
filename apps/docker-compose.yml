@@ -9,7 +9,6 @@ services:
       environment:
         - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/agile_bus_socket
       ports:
-        - 8081:8081/tcp
         - 8080:8080/tcp
       restart: always
       privileged: true
