@@ -29,6 +29,7 @@ services:
 
     agile-nodered:
       image: agileiot/agile-nodered-armv7l
+      hostname: agile-nodered
       volumes:
         - $HOME/.agile/nodered:/root/.node-red
       ports:
