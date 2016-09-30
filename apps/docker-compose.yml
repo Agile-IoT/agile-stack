@@ -34,6 +34,9 @@ services:
         - $HOME/.agile/nodered:/root/.node-red
       ports:
         - 1880:1880/tcp
+      links:
+        - agile-core:agile
+        - agile-influxdb:db
       restart: always
 
     agile-influxdb:
