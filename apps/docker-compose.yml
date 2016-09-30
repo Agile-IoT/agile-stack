@@ -36,7 +36,7 @@ services:
       restart: always
 
     agile-influxdb:
-      image: sbiermann/rpi-influxdb
+      image: $IMAGE_INFLUXDB
       volumes:
        - $HOME/.agile/influxdb:/var/lib/influxdb \
       ports:
