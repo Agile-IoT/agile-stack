@@ -2,7 +2,7 @@
 
 export AGILE_CLIENT_PORT=2000
 export DBUS_SYSTEM_SOCKET=/var/run/dbus/system_bus_socket
-export DBUS_SESSION_SOCKET=/home/cskiraly/agile_bus_socket2
+export DBUS_SESSION_SOCKET=$HOME/agile_bus_socket2
 export ARCH=`arch`
 
 case $ARCH in
