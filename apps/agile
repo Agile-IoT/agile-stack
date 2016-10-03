@@ -1,18 +1,26 @@
-export AGILE_CLIENT_PORT=2000
-export DBUS_SYSTEM_SOCKET=/var/run/dbus/system_bus_socket
-export DBUS_SESSION_SOCKET=/home/cskiraly/agile_bus_socket2
-export ARCH=`arch`
+#!/bin/sh
 
-case $ARCH in
-  armv7l )
-    export IMAGE_INFLUXDB=sbiermann/rpi-influxdb
+BINDIR=$(dirname $0)
+
+MODULES="core-perservice influxdb grafana nodered osjs"
+
+case "$1" in
+  start)
+    $BINDIR/agile-compose up
     ;;
-  x86_64 )
-    export IMAGE_INFLUXDB=influxdb
+  stop)
+    $BINDIR/agile-compose down
     ;;
-  * )
-    export IMAGE_INFLUXDB=influxdb
+  restart)
+    $0 stop
+    sleep 1
+    $0 start
+    ;;
+  update)
+    $BINDIR/agile-compose pull
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart|update}"
+    exit 1
     ;;
 esac
-
-docker-compose $@
