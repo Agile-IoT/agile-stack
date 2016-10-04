@@ -62,7 +62,6 @@ services:
       environment:
         - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/agile_bus_socket
       command: python3 dbus_server/dbus_server.py
-      restart: always
       privileged: true
 
     agile-zb-lamp:
@@ -72,4 +71,3 @@ services:
       environment:
         - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/agile_bus_socket
       command: python3 ge_link_bulb/ge_link_bulb_device.py
-      restart: always
