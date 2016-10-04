@@ -12,88 +12,12 @@ case $ARCH in
     ;;
   x86_64 )
     export IMAGE_INFLUXDB=influxdb
-    export IMAGE_GRAFANA=grafana/grafana:v3.1.1
+    export IMAGE_GRAFANA=grafana/grafana:3.1.1
     ;;
   * )
     export IMAGE_INFLUXDB=influxdb
-    export IMAGE_GRAFANA=grafana/grafana:v3.1.1
+    export IMAGE_GRAFANA=grafana/grafana:3.1.1
     ;;
 esac
 
-docker-compose $@ <<END
-version: '2'
-
-services:
-    agile-core:
-      image: agileiot/agile-core-$ARCH
-      volumes:
-        - $DBUS_SYSTEM_SOCKET:/var/run/dbus/system_bus_socket
-        - $DBUS_SESSION_SOCKET:/usr/src/app/agile_bus_socket
-      environment:
-        - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/agile_bus_socket
-      ports:
-        - 8080:8080/tcp
-      restart: always
-      privileged: true
-
-    agile-ui:
-      image: craycraig/agile-ui-armv7l
-      environment:
-        - AGILE_CLIENT_PORT=$AGILE_CLIENT_PORT
-      ports:
-        - $AGILE_CLIENT_PORT:$AGILE_CLIENT_PORT
-      restart: always
-
-    agile-osjs:
-      image: agileiot/agile-osjs-armv7l
-      ports:
-        - 8000:8000/tcp
-      restart: always
-
-    agile-nodered:
-      image: agileiot/agile-nodered-armv7l
-      hostname: agile-nodered
-      volumes:
-        - $HOME/.agile/nodered:/root/.node-red
-      ports:
-        - 1880:1880/tcp
-      links:
-        - agile-core:agile
-        - agile-influxdb:db
-      restart: always
-
-    agile-influxdb:
-      image: $IMAGE_INFLUXDB
-      volumes:
-       - $HOME/.agile/influxdb:/var/lib/influxdb \
-      ports:
-        - 8083:8083/tcp
-        - 8086:8086/tcp
-      restart: always
-
-    agile-grafana:
-      image: $IMAGE_GRAFANA
-      ports:
-        - 3000:3000/tcp
-      restart: always
-
-    agile-zb:
-      image: agileiot/agile-zb-armv7l
-      volumes:
-        - /dev/ttyUSB0:/dev/ttyUSB0 \
-        - $DBUS_SESSION_SOCKET:/usr/src/app/agile_bus_socket
-      environment:
-        - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/agile_bus_socket
-      command: python3 dbus_server/dbus_server.py
-      restart: always
-      privileged: true
-
-    agile-zb-lamp:
-      image: agileiot/agile-zb-armv7l
-      volumes:
-        - $DBUS_SESSION_SOCKET:/usr/src/app/agile_bus_socket
-      environment:
-        - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/agile_bus_socket
-      command: python3 ge_link_bulb/ge_link_bulb_device.py
-      restart: always
-END
+docker-compose "$@"
