@@ -36,23 +36,23 @@ services:
         - 1880:1880/tcp
       links:
         - agile-core:agile
-        - agile-influxdb:db
+    #    - agile-influxdb:db
       restart: always
 
-    agile-influxdb:
-      image: $IMAGE_INFLUXDB
-      volumes:
-       - $HOME/.agile/influxdb:/var/lib/influxdb \
-      ports:
-        - 8083:8083/tcp
-        - 8086:8086/tcp
-      restart: always
+    #agile-influxdb:
+    #  image: $IMAGE_INFLUXDB
+    #  volumes:
+    #   - $HOME/.agile/influxdb:/var/lib/influxdb \
+    #  ports:
+    #    - 8083:8083/tcp
+    #    - 8086:8086/tcp
+    #  restart: always
 
-    agile-grafana:
-      image: $IMAGE_GRAFANA
-      ports:
-        - 3000:3000/tcp
-      restart: always
+    #agile-grafana:
+    #  image: $IMAGE_GRAFANA
+    #  ports:
+    #    - 3000:3000/tcp
+    #  restart: always
 
     agile-zb:
       image: agileiot/agile-zb-armv7l
