@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  agile-core:
+    # image: agileiot/agile-core-armv7l
+    build: apps/agile-core
+    volumes:
+      - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket
+    ports:
+      - 8081:8081/tcp
+      - 8080:8080/tcp
+    restart: always
+    privileged: true
+
+  agile-ui:
+      image: agileiot/agile-ui-armv7l
+      environment:
+        - AGILE_CLIENT_PORT=1337
+      ports:
+        - 1337:1337/tcp
+      restart: always
