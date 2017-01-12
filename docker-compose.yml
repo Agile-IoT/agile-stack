@@ -1,21 +1,43 @@
 version: '2'
 
 services:
-  agile-core:
-    # image: agileiot/agile-core-armv7l
-    build: apps/agile-core
+  # agile-example:
+  #   build: apps/agile-example
+  #   ports:
+  #    - 80:80/tcp
+
+  agile-dbus:
+    image: agileiot/agile-dbus-armv7l
+    # build: apps/agile-dbus
+    restart: always
     volumes:
-      - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket
+      - $DBUS_SESSION_SOCKET_DIR:/usr/src/app/.agile_bus
+
+  agile-core:
+    image: agileiot/agile-core-armv7l
+    # build: apps/agile-core
+    depends_on:
+      - agile-dbus
+    volumes:
+      - $DBUS_SESSION_SOCKET_DIR:/usr/src/app/.agile_bus
+    environment:
+      - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/.agile_bus/agile_bus_socket
     ports:
-      - 8081:8081/tcp
       - 8080:8080/tcp
     restart: always
     privileged: true
+    command: bash -c "scripts/start.sh DeviceManager & scripts/start.sh ProtocolManager & scripts/start.sh http"
 
-  agile-ui:
-      image: agileiot/agile-ui-armv7l
-      environment:
-        - AGILE_CLIENT_PORT=1337
-      ports:
-        - 1337:1337/tcp
-      restart: always
+  agile-ble:
+    image: agileiot/agile-ble-armv7l
+    # build: apps/agile-core
+    depends_on:
+      - agile-dbus
+    volumes:
+      - $DBUS_SESSION_SOCKET_DIR:/usr/src/app/.agile_bus
+    environment:
+      - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/.agile_bus/agile_bus_socket
+    restart: always
+    privileged: true
+    network_mode: "host"
+    command: bash -c "mkdir -p /var/run/dbus && rm -f /var/run/dbus/pid && dbus-daemon --system && hciconfig hci0 down && hciconfig hci0 up && /usr/local/libexec/bluetooth/bluetoothd -E & scripts/start.sh BLE"

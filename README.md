@@ -1,35 +1,130 @@
-# ResinOS and Docker-compose
+# Agile-stack, resinOS and Docker-compose
 
-This is a POC to develop the agile stack with a [resinOS device](https://resinos.io/) as a remote host to [docker-compose](https://docs.docker.com/compose/overview/).
+This is an easy way to develop with the agile stack on real hardware.
 
-## Usage
+## Overview:
 
-### Setup your resinOS device.
-Head over to the getting started page of resinOS (https://resinos.io/docs/raspberry-pi2/gettingstarted/)
-1. Download one of the resinOS device images, in this example we use the raspberry pi 2.
-2. **[Optional]** Configure the image for wifi connection, to do this you will first have to [install `rdt`](https://resinos.io/docs/raspberrypi3/gettingstarted/#install-resin-device-toolbox).
-3. Power up the device and `ping resin.local` to make sure its connected to the network.
+We use a [Raspberry pi](https://www.raspberrypi.org/) as a remote to [docker-compose](https://docs.docker.com/compose/overview/) on our work machine. This allows us to work as we would on our x86 machine and push changes over the local network to the docker engine running on the arm device (the Raspberry pi), which rebuilds/restarts the containers and gives us back the logs.
 
-### Get Docker and Docker-compose Installed
-Install docker + docker compose on your laptop, following this guide: https://docs.docker.com/compose/install/
+## Usage:
+It's a simple 3 step process (I wont count [requirements](#requirements))
+  1. [Setup your resinOS device](#setup-your-resinos-device)
+  2. [Start the agile services](#start-the-agile-services)
+  3. [Developing](#/developing)
 
-### Spin up the services
-1. First clone this repo:
+*<b>important</b>: These instructions are for *NIX based systems. Windows will require some minor modifications, a PR for windows instructions will be greatly appreciated.*
+
+### requirements:
+- Software:
+  * [docker + docker-compose](https://docs.docker.com/compose/install/)
+  * [Node.js + npm](https://nodejs.org/en/)
+  * [resin device toolbox (`rdt`)](https://www.npmjs.com/package/resin-device-toolbox)
+- Hardware:
+  * Raspberry pi 2 or 3
+  * SD card `>= 8gb`
+  * Wifi dongle or ethernet cable
+  * Bluetooth dongle
+
+### Setup your resinOS device
+
+* Download the OS:
 ```
-git clone https://github.com/agile-iot/agile-resin
+wget https://files.resin.io/resinos/raspberry-pi2/2.0.0-beta.1/resin-dev.zip
 ```
 
-2. Deploy your services:
-From the project directory run the following.
+* Unzip the image download to find `resin.img`
+
+* Configure the image (*only needed if you are using wifi*)
 ```
-DOCKER_API_VERSION=1.22 DOCKER_HOST=tcp://resin.local:2375 docker-compose up
+rdt configure ~/Downloads/resin.img
 ```
 
-#### Profit $$$
-Point the browser on your laptop to resin.local:1337
+* Plug in your SD card
+* Flash the image (use arrow keys to select correct drive)
+```
+$ sudo rdt flash ~/Downloads/resin.img
+Password:
+? Select drive (Use arrow keys)
+❯ /dev/disk3 (7.9 GB) - STORAGE DEVICE
+```
 
-## Warnings and Limitations.
+* Boot the device
+* Check that it's on the local network: `$ ping resin.local` or `$ rdt scan`.
 
-* You need to make sure that the base images used in your services **match the architecture** of the device you are
-running the containers on. In this example, we target a raspberry pi 3, so we need our base images to be `armhf`, the
-regular/official `amd64` images on dockerhub won't work.
+### Start the agile services
+* First clone this repo:
+```
+git clone https://github.com/agile-iot/agile-resin & cd /agile-resin
+```
+
+* Deploy agile services:
+```
+bash push.sh
+```
+
+* If everything looks good. Turn on the protocol discovery.
+```
+curl -X POST -H "Content-Type: application/json" -H "Cache-Control: no-cache" "resin.local:8080/api/protocols/discovery"
+```
+
+### Developing
+
+`docker-compose.yml` holds the configuration for the containers, you'll see currently all the images use a prebuilt container from [Dockerhub](https://hub.docker.com/u/agileiot/) eg:
+```
+agile-core:
+  image: agileiot/agile-core-armv7l
+```
+
+However when we are developing a new or existing service will, of course, want to build the container locally instead of publishing it online for every change.
+
+#### Developing with an existing service:
+
+* Clone the source to the `/apps` directory
+
+```
+$ cd /apps && git clone https://github.com/Agile-IoT/agile-core.git
+```
+
+* Then tell `docker-compose` to build from source by commenting out the image key and uncommenting the build key.
+```
+agile-core:
+  # image: agileiot/agile-core-armv7l
+  build: apps/agile-core
+```
+* Deploy :tada
+```
+bash push.sh
+```
+
+The docker engine will cache builds so things will be a lot quicker after the first run.
+
+#### Developing with a new service:
+
+It follows the same procedure as above however you'll need to create a new entry in the `docker-compose.yml`.
+
+* Clone your source to `/apps` & add a Dockerfile if you don't already have one.
+```
+cd /apps && git clone https://github.com/Agile-IoT/agile-my-service.git
+```
+
+* Add an entry for the new service to `docker-compose.yml`. The simplest configuration would be. You can read more about docker-compose options [here](https://docs.docker.com/compose/compose-file/):
+```
+agile-my-service:
+  build: apps/agile-my-service
+```
+
+I've also included a simple `agile-example` service to serve as a guide.
+
+#### Ssh'ing
+
+You may want to see what's going on in during runtime:
+
+To ssh into the host:
+```
+$ ssh root@resin.local -p22222
+```
+
+To ssh into one of the containers:
+```
+$ rdt ssh resin.local
+```
