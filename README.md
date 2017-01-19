@@ -14,7 +14,7 @@ It's a simple 3 step process (I wont count [requirements](#requirements))
 
 *<b>important</b>: These instructions are for *NIX based systems. Windows will require some minor modifications, a PR for windows instructions will be greatly appreciated.*
 
-### requirements:
+### Requirements:
 - Software:
   * [docker + docker-compose](https://docs.docker.com/compose/install/)
   * [Node.js + npm](https://nodejs.org/en/)
