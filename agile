@@ -6,6 +6,7 @@ realpath . &>/dev/null || realpath() {
     [[ $P = /* ]] && echo "$P" || echo "$PWD/${P#./}"
 }
 BINDIR=$(dirname $(realpath $0))
+AGILE_HOST=${AGILE_HOST:-"resin.local"}
 
 is_service_up (){
   [ $(curl -sL -w "%{http_code}\\n" "$1" -o /dev/null) -eq "$2" ]
@@ -22,13 +23,13 @@ case "$1" in
   start)
     $BINDIR/agile-compose up -d agile-core
     $BINDIR/agile-compose up -d agile-ble
-    wait_for_service "http://localhost:8080" 404
+    wait_for_service "http://$AGILE_HOST:8080" 404
     $BINDIR/agile-compose up -d agile-ui
-    wait_for_service "http://localhost:2000" 200
+    wait_for_service "http://$AGILE_HOST:2000" 200
     $BINDIR/agile-compose up -d agile-osjs
-    wait_for_service "http://localhost:8000" 200
+    wait_for_service "http://$AGILE_HOST:8000" 200
     $BINDIR/agile-compose up -d agile-nodered
-    wait_for_service "http://localhost:1880" 200
+    wait_for_service "http://$AGILE_HOST:1880" 200
     $BINDIR/agile-compose up -d agile-zb
     sleep 3
     $BINDIR/agile-compose up -d agile-zb-lamp
