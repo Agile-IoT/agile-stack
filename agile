@@ -36,19 +36,15 @@ then
   export DOCKER_HOST=tcp://$AGILE_HOST:2375
   # Because resinos is read-only fs we must write to /mnt/data/
   export DATA=/mnt/data/.agile
-  export DBUS_SYSTEM_SOCKET=/var/run/dbus/system_bus_socket
-  export DBUS_SESSION_SOCKET_DIR=$DATA/agile_bus/
-  export DBUS_SESSION_SOCKET_NAME=agile_bus_socket
-  export DBUS_SESSION_SOCKET=$DBUS_SESSION_SOCKET_DIR/$DBUS_SESSION_SOCKET_NAME
-  export DBUS_SESSION_BUS_ADDRESS=unix:path=$DBUS_SESSION_SOCKET
 else
   export DATA=$HOME/.agile
-  export DBUS_SYSTEM_SOCKET=/var/run/dbus/system_bus_socket
-  export DBUS_SESSION_SOCKET_DIR=$DATA/agile_bus/
-  export DBUS_SESSION_SOCKET_NAME=agile_bus_socket
-  export DBUS_SESSION_SOCKET=$DBUS_SESSION_SOCKET_DIR/$DBUS_SESSION_SOCKET_NAME
   export ARCH=`uname -m`
 fi
+export DBUS_SYSTEM_SOCKET=/var/run/dbus/system_bus_socket
+export DBUS_SESSION_SOCKET_DIR=$DATA/agile_bus/
+export DBUS_SESSION_SOCKET_NAME=agile_bus_socket
+export DBUS_SESSION_SOCKET=$DBUS_SESSION_SOCKET_DIR/$DBUS_SESSION_SOCKET_NAME
+export DBUS_SESSION_BUS_ADDRESS=unix:path=$DBUS_SESSION_SOCKET
 
 case "$1" in
   start)
