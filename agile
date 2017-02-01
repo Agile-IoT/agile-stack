@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 realpath . &>/dev/null || realpath() {
     P=$1
