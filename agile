@@ -8,7 +8,6 @@ realpath . &>/dev/null || realpath() {
 BINDIR=$(dirname $(realpath $0))
 COMPOSE="docker-compose -f $BINDIR/docker-compose.yml"
 [ -r "$BINDIR/agile.config" ] && . "$BINDIR/agile.config"
-AGILE_HOST=${AGILE_HOST:-"resin.local"}
 
 is_service_up (){
   [ $(curl -sL -w "%{http_code}\\n" "$1" -o /dev/null) -eq "$2" ]
@@ -25,8 +24,12 @@ export COMPOSE_HTTP_TIMEOUT=300
 export AGILE_CLIENT_PORT=2000
 export AGILE_ZB_TTY=/dev/ttyUSB0
 
-if [ "$AGILE_MODE" == "remote" ]
-then
+if [ "$AGILE_MODE" == "local" ] ; then
+  AGILE_HOST=${AGILE_HOST:-"localhost"}
+
+  export DATA=$HOME/.agile
+  export ARCH=`uname -m`
+else
   AGILE_HOST=${AGILE_HOST:-"resin.local"}
 
   # Agile-ble runs the bluetooth service so we must stop the hosts
@@ -36,9 +39,6 @@ then
   export DOCKER_HOST=tcp://$AGILE_HOST:2375
   # Because resinos is read-only fs we must write to /mnt/data/
   export DATA=/mnt/data/.agile
-else
-  export DATA=$HOME/.agile
-  export ARCH=`uname -m`
 fi
 export DBUS_SYSTEM_SOCKET=/var/run/dbus/system_bus_socket
 export DBUS_SESSION_SOCKET_DIR=$DATA/agile_bus/
