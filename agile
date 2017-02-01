@@ -6,6 +6,7 @@ realpath . &>/dev/null || realpath() {
     [[ $P = /* ]] && echo "$P" || echo "$PWD/${P#./}"
 }
 BINDIR=$(dirname $(realpath $0))
+[ -r "$BINDIR/agile.config" ] && . "$BINDIR/agile.config"
 AGILE_HOST=${AGILE_HOST:-"resin.local"}
 
 is_service_up (){

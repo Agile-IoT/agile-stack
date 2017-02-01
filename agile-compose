@@ -4,6 +4,7 @@ realpath . &>/dev/null || realpath() {
     [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
 }
 export BINDIR=$(dirname $(realpath $0))
+[ -r "$BINDIR/agile.config" ] && . "$BINDIR/agile.config"
 
 export COMPOSE_HTTP_TIMEOUT=300
 export AGILE_CLIENT_PORT=2000
