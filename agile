@@ -20,26 +20,24 @@ wait_for_service (){
 
 case "$1" in
   start)
-    #$BINDIR/dbus/agile-dbus-start
-    $BINDIR/compose/agile-compose up -d agile-core
-    $BINDIR/compose/agile-compose up -d agile-ble
+    $BINDIR/agile-compose up -d agile-core
+    $BINDIR/agile-compose up -d agile-ble
     wait_for_service "http://localhost:8080" 404
-    $BINDIR/compose/agile-compose up -d agile-ui
+    $BINDIR/agile-compose up -d agile-ui
     wait_for_service "http://localhost:2000" 200
-    $BINDIR/compose/agile-compose up -d agile-osjs
+    $BINDIR/agile-compose up -d agile-osjs
     wait_for_service "http://localhost:8000" 200
-    $BINDIR/compose/agile-compose up -d agile-nodered
+    $BINDIR/agile-compose up -d agile-nodered
     wait_for_service "http://localhost:1880" 200
-    $BINDIR/compose/agile-compose up -d agile-zb
+    $BINDIR/agile-compose up -d agile-zb
     sleep 3
-    $BINDIR/compose/agile-compose up -d agile-zb-lamp
+    $BINDIR/agile-compose up -d agile-zb-lamp
     ;;
   stop)
-    $BINDIR/compose/agile-compose stop
+    $BINDIR/agile-compose stop
     ;;
   clean)
-    $BINDIR/dbus/agile-dbus-stop
-    $BINDIR/compose/agile-compose down
+    $BINDIR/agile-compose down
     ;;
   restart)
     $0 stop
@@ -47,19 +45,19 @@ case "$1" in
     $0 start
     ;;
   update)
-    $BINDIR/compose/agile-compose pull
+    $BINDIR/agile-compose pull
     ;;
   zb-start)
-    $BINDIR/compose/agile-compose up -d agile-zb
+    $BINDIR/agile-compose up -d agile-zb
     sleep 3
-    $BINDIR/compose/agile-compose up -d agile-zb-lamp
+    $BINDIR/agile-compose up -d agile-zb-lamp
     ;;
   zb-stop)
-    $BINDIR/compose/agile-compose stop agile-zb-lamp agile-zb
+    $BINDIR/agile-compose stop agile-zb-lamp agile-zb
     ;;
   compose)
     shift
-    $BINDIR/compose/agile-compose "$@"
+    $BINDIR/agile-compose "$@"
     ;;
   install)
     ln -s $BINDIR/agile /usr/local/bin/
