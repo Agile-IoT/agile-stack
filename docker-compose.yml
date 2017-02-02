@@ -95,3 +95,18 @@ services:
     environment:
       - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/.agile_bus/agile_bus_socket
     command: python3 ge_link_bulb/ge_link_bulb_device.py
+
+  agile-idm:
+    image: agileiot/agile-idm-armv7l
+    build: apps/agile-idm
+    hostname: agile-idm
+    volumes:
+      - $DATA/idm/conf:/root/idm.conf
+      - $DATA/idm/db:/root/idm.db
+    environment:
+      - DOCKER_CONF=/root/idm.conf
+    ports:
+      - 3000:3000/tcp
+      - 1444:1444/tcp
+      - 1443:1443/tcp
+    restart: always
