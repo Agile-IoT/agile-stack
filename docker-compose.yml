@@ -54,6 +54,7 @@ services:
 
   agile-osjs:
     image: agileiot/agile-osjs-armv7l
+    # build: apps/agile-osjs
     depends_on:
       - agile-core
     ports:
@@ -73,6 +74,7 @@ services:
 
   agile-zb:
     image: agileiot/agile-zb-armv7l
+    # build: apps/agile-zb
     depends_on:
       - agile-dbus
     devices:
