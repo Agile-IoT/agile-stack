@@ -63,6 +63,7 @@ services:
 
   agile-nodered:
     image: agileiot/agile-nodered-armv7l
+    # build: apps/agile-nodered
     hostname: agile-nodered
     volumes:
       - $DATA/nodered:/root/.node-red
