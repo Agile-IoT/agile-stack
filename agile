@@ -1,0 +1,105 @@
+#!/bin/bash
+
+realpath . &>/dev/null || realpath() {
+    P=$1
+    while readlink $P >/dev/null; do P=`readlink $P`; done
+    [[ $P = /* ]] && echo "$P" || echo "$PWD/${P#./}"
+}
+BINDIR=$(dirname $(realpath $0))
+COMPOSE="docker-compose -f $BINDIR/docker-compose.yml"
+[ -r "$BINDIR/agile.config" ] && . "$BINDIR/agile.config"
+
+is_service_up (){
+  [ $(curl -sL -w "%{http_code}\\n" "$1" -o /dev/null) -eq "$2" ]
+}
+
+wait_for_service (){
+  while ! is_service_up $1 $2  ; do
+    echo "Waiting for $1"
+    sleep 1
+  done
+}
+
+export COMPOSE_HTTP_TIMEOUT=300
+export AGILE_CLIENT_PORT=2000
+export AGILE_ZB_TTY=/dev/ttyUSB0
+
+if [ "$AGILE_MODE" == "local" ] ; then
+  AGILE_HOST=${AGILE_HOST:-"localhost"}
+
+  export DATA=$HOME/.agile
+  export ARCH=`uname -m`
+else
+  AGILE_HOST=${AGILE_HOST:-"resin.local"}
+
+  # Agile-ble runs the bluetooth service so we must stop the hosts
+  ssh root@$AGILE_HOST -p22222 'systemctl stop bluetooth'
+
+  export DOCKER_API_VERSION=1.22
+  export DOCKER_HOST=tcp://$AGILE_HOST:2375
+  # Because resinos is read-only fs we must write to /mnt/data/
+  export DATA=/mnt/data/.agile
+fi
+export DBUS_SYSTEM_SOCKET=/var/run/dbus/system_bus_socket
+export DBUS_SESSION_SOCKET_DIR=$DATA/agile_bus/
+export DBUS_SESSION_SOCKET_NAME=agile_bus_socket
+export DBUS_SESSION_SOCKET=$DBUS_SESSION_SOCKET_DIR/$DBUS_SESSION_SOCKET_NAME
+export DBUS_SESSION_BUS_ADDRESS=unix:path=$DBUS_SESSION_SOCKET
+
+case "$1" in
+  start)
+    $COMPOSE up -d agile-core
+    $COMPOSE up -d agile-ble
+    wait_for_service "http://$AGILE_HOST:8080" 404
+    $COMPOSE up -d agile-ui
+    wait_for_service "http://$AGILE_HOST:2000" 200
+    $COMPOSE up -d agile-osjs
+    wait_for_service "http://$AGILE_HOST:8000" 200
+    $COMPOSE up -d agile-nodered
+    wait_for_service "http://$AGILE_HOST:1880" 200
+    $COMPOSE up -d agile-zb
+    sleep 3
+    $COMPOSE up -d agile-zb-lamp
+    ;;
+  stop)
+    $COMPOSE stop
+    ;;
+  clean)
+    $COMPOSE down
+    ;;
+  restart)
+    $0 stop
+    sleep 1
+    $0 start
+    ;;
+  update)
+    $COMPOSE pull
+    ;;
+  zb-start)
+    $COMPOSE up -d agile-zb
+    sleep 3
+    $COMPOSE up -d agile-zb-lamp
+    ;;
+  zb-stop)
+    $COMPOSE stop agile-zb-lamp agile-zb
+    ;;
+  compose)
+    shift
+    $COMPOSE "$@"
+    ;;
+  install)
+    ln -s $BINDIR/agile /usr/local/bin/
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart|clean|update|compose|install}
+         install: create symbolic link in /usr/local/bin
+         start: start all AGILE components
+         stop: stop all AGILE components
+         restart: stop and then start
+         clean: stop and remove all containers. AGILE persistent state will remain, but docker containers will be reinitialized
+         update: download newest version of docker containers
+         compose: use docker-compose commands for fine-grained control (e.g. docker compose logs)
+    "
+    exit 1
+    ;;
+esac
