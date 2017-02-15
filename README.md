@@ -50,6 +50,7 @@ Password:
 
 * Boot the device
 * Check that it's on the local network: `$ ping resin.local` or `$ rdt scan`.
+* If it is not on the local network, you can still use the device, but you need to know its IP address.
 
 ### Start the agile services
 * First clone this repo:
@@ -60,6 +61,11 @@ git clone https://github.com/agile-iot/agile-resin & cd /agile-resin
 * Deploy agile services:
 ```
 bash push.sh
+```
+
+If the gateway is not on the local network:
+```
+bash push.sh <IP-address>
 ```
 
 * If everything looks good. Turn on the protocol discovery.
