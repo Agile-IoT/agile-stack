@@ -1,0 +1,22 @@
+{
+  "name": "agile-stack",
+  "version": "0.0.1",
+  "description": "Agile gateway service stack",
+  "main": "index.js",
+  "scripts": {
+    "versionist": "versionist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Agile-IoT/agile-resin.git"
+  },
+  "author": "craig-mulligan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Agile-IoT/agile-resin/issues"
+  },
+  "homepage": "https://github.com/Agile-IoT/agile-resin#readme",
+  "devDependencies": {
+    "versionist": "2.8.1"
+  }
+}
