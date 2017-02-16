@@ -134,3 +134,9 @@ To ssh into one of the containers:
 ```
 $ rdt ssh resin.local
 ```
+
+#### Troubleshooting
+
+* Can't ping `resin.local`?
+
+`resin.local` won't work across subnets, your device maybe on a `2.4gz` network and your work machine maybe on the `5gz`.
