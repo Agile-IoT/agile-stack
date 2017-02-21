@@ -47,9 +47,9 @@ services:
     depends_on:
       - agile-core
     environment:
-      - AGILE_CLIENT_PORT=$AGILE_CLIENT_PORT
+      - AGILE_CLIENT_PORT=2000
     ports:
-      - $AGILE_CLIENT_PORT:$AGILE_CLIENT_PORT
+      - 2000:2000/tcp
     restart: always
 
   agile-osjs:
@@ -76,7 +76,7 @@ services:
     depends_on:
       - agile-dbus
     devices:
-      - $AGILE_ZB_TTY:$AGILE_ZB_TTY
+      - dev/ttyUSB0:/dev/ttyUSB0
     volumes:
       - $DBUS_SESSION_SOCKET_DIR:/usr/src/app/.agile_bus
     environment:
