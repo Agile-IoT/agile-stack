@@ -29,7 +29,7 @@ It's a simple 3 step process (I wont count [requirements](#requirements))
 
 * Download the OS:
 ```
-wget https://files.resin.io/resinos/raspberry-pi2/2.0.0-beta.1/resin-dev.zip
+wget https://files.resin.io/resinos/raspberrypi3/2.0.0-beta.1/resin-dev.zip
 ```
 
 * Unzip the image download to find `resin.img`
