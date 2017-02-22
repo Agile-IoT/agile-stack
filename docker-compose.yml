@@ -98,7 +98,7 @@ services:
 
   agile-idm:
     image: agileiot/agile-idm-armv7l
-    build: apps/agile-idm
+    # build: apps/agile-idm
     hostname: agile-idm
     volumes:
       - $DATA/idm/conf:/root/idm.conf
