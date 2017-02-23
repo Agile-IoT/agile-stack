@@ -43,14 +43,13 @@ services:
     command: bash -c "mkdir -p /var/run/dbus && rm -f /var/run/dbus/pid && dbus-daemon --system && hciconfig hci0 down && hciconfig hci0 up && /usr/local/libexec/bluetooth/bluetoothd -E & scripts/start.sh BLE"
 
   agile-ui:
-    image: agileiot/agile-ui-armv7l
+    image: agileiot/agile-ui-armv7l:v0.1.1
+    # build: apps/agile-ui
+    restart: always
     depends_on:
       - agile-core
-    environment:
-      - AGILE_CLIENT_PORT=2000
     ports:
-      - 2000:2000/tcp
-    restart: always
+      - 80:2000/tcp
 
   agile-osjs:
     image: agileiot/agile-osjs-armv7l
