@@ -49,7 +49,7 @@ services:
     depends_on:
       - agile-core
     ports:
-      - 80:2000/tcp
+      - 2000:1337/tcp
 
   agile-osjs:
     image: agileiot/agile-osjs-armv7l
