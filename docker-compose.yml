@@ -41,3 +41,56 @@ services:
     privileged: true
     network_mode: "host"
     command: bash -c "mkdir -p /var/run/dbus && rm -f /var/run/dbus/pid && dbus-daemon --system && hciconfig hci0 down && hciconfig hci0 up && /usr/local/libexec/bluetooth/bluetoothd -E & scripts/start.sh BLE"
+
+  agile-ui:
+    image: agileiot/agile-ui-armv7l:v0.1.1
+    # build: apps/agile-ui
+    restart: always
+    depends_on:
+      - agile-core
+    ports:
+      - 80:2000/tcp
+
+  agile-osjs:
+    image: agileiot/agile-osjs-armv7l
+    # build: apps/agile-osjs
+    depends_on:
+      - agile-core
+    ports:
+      - 8000:8000/tcp
+    restart: always
+
+  agile-nodered:
+    image: agileiot/agile-nodered-armv7l
+    # build: apps/agile-nodered
+    hostname: agile-nodered
+    volumes:
+      - $DATA/nodered:/root/.node-red
+    ports:
+      - 1880:1880/tcp
+    links:
+      - agile-core:agile
+    restart: always
+
+  agile-zb:
+    image: agileiot/agile-zb-armv7l
+    # build: apps/agile-zb
+    depends_on:
+      - agile-dbus
+    devices:
+      - dev/ttyUSB0:/dev/ttyUSB0
+    volumes:
+      - $DBUS_SESSION_SOCKET_DIR:/usr/src/app/.agile_bus
+    environment:
+      - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/.agile_bus/agile_bus_socket
+    command: python3 dbus_server/dbus_server.py
+
+  agile-zb-lamp:
+    image: agileiot/agile-zb-armv7l
+    depends_on:
+      - agile-zb
+    volumes:
+      - $DBUS_SESSION_SOCKET_DIR:/usr/src/app/.agile_bus
+    environment:
+      - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/.agile_bus/agile_bus_socket
+    command: python3 ge_link_bulb/ge_link_bulb_device.py
