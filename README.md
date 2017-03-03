@@ -55,7 +55,7 @@ Password:
 ### Start the agile services
 * First clone this repo:
 ```
-git clone https://github.com/agile-iot/agile-resin & cd /agile-resin
+git clone https://github.com/agile-iot/agile-stack & cd /agile-stack
 ```
 
 * Deploy agile services:
