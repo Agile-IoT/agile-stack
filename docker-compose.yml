@@ -53,7 +53,7 @@ services:
     restart: always
 
   agile-osjs:
-    image: agileiot/agile-osjs-armv7l
+    image: agileiot/agile-osjs-armv7l:idm
     # build: apps/agile-osjs
     depends_on:
       - agile-core
@@ -62,7 +62,7 @@ services:
     restart: always
 
   agile-nodered:
-    image: agileiot/agile-nodered-armv7l
+    image: agileiot/agile-nodered-armv7l:idm
     # build: apps/agile-nodered
     hostname: agile-nodered
     volumes:
@@ -72,6 +72,7 @@ services:
     links:
       - agile-core:agile
     restart: always
+
 
   agile-zb:
     image: agileiot/agile-zb-armv7l
