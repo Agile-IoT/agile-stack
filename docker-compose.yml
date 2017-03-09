@@ -44,7 +44,7 @@ services:
 
   agile-dummy:
     image: agileiot/agile-dummy-armv7l
-    build: ../agile-dummy-protocol
+    # build: apps/agile-dummy-protocol
     depends_on:
       - agile-dbus
     volumes:
