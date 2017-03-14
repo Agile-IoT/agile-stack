@@ -10,8 +10,9 @@ This is an easy way to develop with the agile stack on real hardware.
  * integrate with login interface 
  * propagates the token to node-red through the node-red frame application
 * Node-RED 
- * run an express app importing node-red to include enforcment to ensure that a particular user has access to one instance of Node-RED
- * also this node-red includes the agile-idm token node to retrieve the token of the currently logged in user.
+ * run an express app
+ * get the token from agile-idm in the initial request to the application and verify that only a particular user from IDM can use a node-red instance by mapping the user session to  the admin session from Node-RED
+ * this node-red includes the agile-idm token node to retrieve the token of the currently logged in user.
 * AGILE-IDM
 
 ### How to configure it
