@@ -18,39 +18,35 @@ It's a simple 3 step process (I wont count [requirements](#requirements))
 - Software:
   * [docker + docker-compose](https://docs.docker.com/compose/install/)
   * [Node.js + npm](https://nodejs.org/en/)
-  * [resin device toolbox (`rdt`)](https://www.npmjs.com/package/resin-device-toolbox)
+  * [resin CLI](https://www.npmjs.com/package/resin-cli)
+  * [etcher](https://etcher.io/)
 - Hardware:
   * Raspberry pi 2 or 3
   * SD card `>= 8gb`
-  * Wifi dongle or ethernet cable
-  * Bluetooth dongle
+  * Wifi dongle or ethernet cable *optional if you have the pi3*
+  * Bluetooth dongle *optional if you have the pi3*
 
 ### Setup your resinOS device
 
-* Download the OS:
-```
-wget https://files.resin.io/resinos/raspberrypi3/2.0.0-beta.1/resin-dev.zip
-```
+* Sign up with [resin.io](https://dashboard.resin.io/signup)
 
-* Unzip the image download to find `resin.img`
+* Create an application for your specific device-type.
 
-* Configure the image (*only needed if you are using wifi*)
-```
-rdt configure ~/Downloads/resin.img
-```
+* Download your app image.
 
-* Plug in your SD card
-* Flash the image (use arrow keys to select correct drive)
-```
-$ sudo rdt flash ~/Downloads/resin.img
-Password:
-? Select drive (Use arrow keys)
-❯ /dev/disk3 (7.9 GB) - STORAGE DEVICE
-```
+__NOTE__ ensure you download a `-dev` image. The dev image exposes the hostOS ports and allows us to do local builds.
 
-* Boot the device
-* Check that it's on the local network: `$ ping resin.local` or `$ rdt scan`.
-* If it is not on the local network, you can still use the device, but you need to know its IP address.
+* Burn the image to and SD card. There are a variety of ways to do this. I suggest using [etcher](https://etcher.io/).
+
+* Boot the device, and check the resin dashboard. In ~30s you should see a device in the dashboard.
+
+* In the device actions tab. Enable `local-mode`.
+
+* Ensure you have the CLI installed `$ npm i -g resin-cli`
+
+* Check if the device is accessible on your local network `$ resin local scan`.
+
+* If the scan returns nothing, check the devices IP address on the resin dashboard.
 
 ### Start the agile services
 * First clone this repo:
@@ -60,18 +56,15 @@ git clone https://github.com/agile-iot/agile-stack & cd /agile-stack
 
 * Deploy agile services:
 ```
-bash push.sh
+./push.sh
 ```
 
 If the gateway is not on the local network:
 ```
-bash push.sh <IP-address>
+./push.sh <IP-address>
 ```
 
-* If everything looks good. Turn on the protocol discovery.
-```
-curl -X POST -H "Content-Type: application/json" -H "Cache-Control: no-cache" "resin.local:8080/api/protocols/discovery"
-```
+Check the device management UI to see if discover and devices are working. it's available on port `2000`. eg. http://resin.local:2000
 
 ### Developing
 
@@ -132,7 +125,7 @@ $ ssh root@resin.local -p22222
 
 To ssh into one of the containers:
 ```
-$ rdt ssh resin.local
+$ resin local ssh resin.local
 ```
 
 #### Troubleshooting
