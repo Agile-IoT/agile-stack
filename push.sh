@@ -3,7 +3,7 @@
 HOST=${1:-resin.local}
 
 # Agile-ble runs the bluetooth service so we must stop the hosts
-ssh root@$HOST -p22222 '/usr/bin/hciattach /dev/ttyAMA0 bcm43xx 921600 noflow - ; systemctl stop bluetooth'
+ssh root@$HOST -p22222 'systemctl stop bluetooth'
 
 export DOCKER_API_VERSION=1.22
 export DOCKER_HOST=tcp://$HOST:2375
