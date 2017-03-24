@@ -40,7 +40,7 @@ __NOTE__ ensure you download a `-dev` image. The dev image exposes the hostOS po
 
 * Boot the device, and check the resin dashboard. In ~30s you should see a device in the dashboard.
 
-* In the device actions tab. Enable `local-mode`.
+* In the resin.io dashboard select application, select device, select actions -> enable `local-mode`.
 
 * Ensure you have the CLI installed `$ npm i -g resin-cli`
 
