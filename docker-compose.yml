@@ -45,6 +45,18 @@ services:
     network_mode: "host"
     command: bash -c "mkdir -p /var/run/dbus && rm -f /var/run/dbus/pid && dbus-daemon --system && hciconfig hci0 down && hciconfig hci0 up && /usr/local/libexec/bluetooth/bluetoothd -E & scripts/start.sh BLE"
 
+  agile-dummy:
+    container_name: agile-dummy
+    image: agileiot/agile-dummy-armv7l
+    # build: apps/agile-dummy-protocol
+    depends_on:
+      - agile-dbus
+    volumes:
+      - $DBUS_SESSION_SOCKET_DIR:/usr/src/app/.agile_bus
+    environment:
+      - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/.agile_bus/agile_bus_socket
+    restart: always
+
   agile-ui:
     container_name: agile-ui
     image: agileiot/agile-ui-armv7l:v0.1.1
