@@ -54,14 +54,16 @@ __NOTE__ ensure you download a `-dev` image. The dev image exposes the hostOS po
 git clone https://github.com/agile-iot/agile-stack & cd /agile-stack
 ```
 
-* Deploy agile services:
+* Edit `.env` and add your devices hostname. (default is `resin.local`)
+
+* Disable BLE
 ```
-./push.sh
+ssh root@resin.local '/usr/bin/hciattach /dev/ttyAMA0 bcm43xx 921600 noflow - ; systemctl stop bluetooth'
 ```
 
-If the gateway is not on the local network:
+* Deploy
 ```
-./push.sh <IP-address>
+docker-compose up
 ```
 
 Check the device management UI to see if discover and devices are working. it's available on port `2000`. eg. http://resin.local:2000
