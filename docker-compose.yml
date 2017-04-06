@@ -68,7 +68,7 @@ services:
       - /etc/hostname:/etc/hostname
 
   agile-nodered:
-    image: agileiot/agile-nodered-armv7l:idm
+    image: agileiot/agile-nodered-armv7l:security-merge
     container_name: agile-nodered
     # build: apps/agile-nodered
     hostname: agile-nodered
