@@ -60,7 +60,7 @@ It's a simple 3 step process (I wont count [requirements](#requirements))
 
 * Download the OS:
 ```
-wget https://files.resin.io/resinos/raspberry-pi2/2.0.0-beta.1/resin-dev.zip
+wget https://files.resin.io/resinos/raspberrypi3/2.0.0-beta.1/resin-dev.zip
 ```
 
 * Unzip the image download to find `resin.img`
@@ -86,7 +86,7 @@ Password:
 ### Start the agile services
 * First clone this repo:
 ```
-git clone https://github.com/agile-iot/agile-resin & cd /agile-resin
+git clone https://github.com/agile-iot/agile-stack & cd /agile-stack
 ```
 
 * Deploy agile services:
