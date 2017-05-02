@@ -30,7 +30,7 @@ It's a simple 3 step process (I wont count [requirements](#requirements))
 
 * Sign up with [resin.io](https://dashboard.resin.io/signup)
 
-* Create an application for your specific device-type.
+* Share your account email with [craig-mulligan](mailto:craig@resin.io) and I'll add you as a collaborator on the agile application.
 
 * Download your app image.
 
