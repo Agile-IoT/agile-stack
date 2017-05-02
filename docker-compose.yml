@@ -81,6 +81,14 @@ services:
       - agile-core:agile
     restart: always
 
+  agile-recommenderandconfigurator:
+    container_name: agile-recommenderandconfigurator
+    image: agileiot/recommenderandconfigurator:v1.0
+    # build: apps/agile-recommenderandconfigurator
+    restart: always
+    ports:
+      - 8090:8090/tcp
+
  # agile-zb:
  #   container_name: agile-zb
  #   image: agileiot/agile-zb-armv7l
