@@ -2,37 +2,6 @@
 
 This is an easy way to develop with the agile stack on real hardware.
 
-## Modifications for this branch
-
-###  This branch contains the following modified components
-
-* OS-JS:
- * integrate with login interface 
- * propagates the token to node-red through the node-red frame application
-* Node-RED 
- * run an express app
- * get the token from agile-idm in the initial request to the application and verify that only a particular user from IDM can use a node-red instance by mapping the user session to  the admin session from Node-RED
- * this node-red includes the agile-idm token node to retrieve the token of the currently logged in user.
-* AGILE-IDM
-
-### How to configure it
-
-You need to add something like this to your /etc/hosts file (assuming that the gateway is on 192.168.1.20):
-
-192.168.1.20   agilegw.local
-
-This is needed because the configurations of all the modified components rely in this name (agilegw to find each other; especially, when this comes to Oauth2 integrations). We should address this in the future in the project (see https://github.com/Agile-IoT/Architecture/issues/3)
-
-### How to use it
-
-You need to login with OSJS using the user (agile) and password (secret)
-
-Then you can deploy the following flow to get the user information for the user who is currently logged in:
-
-```
-[{"id":"b92b4272.3dc098","type":"idm-token","z":"6a9908eb.920a4","name":"","tokensource":"session","idm":"http://localhost:3000","x":204.5,"y":187.75,"wires":[["d0c1ae6.805175","297051af.53cc36"]]},{"id":"edca8fbb.5813d8","type":"inject","z":"6a9908eb.920a4","name":"","topic":"","payload":"","payloadType":"date","repeat":"","crontab":"","once":false,"x":111.5,"y":107.25,"wires":[["b92b4272.3dc098"]]},{"id":"d0c1ae6.805175","type":"debug","z":"6a9908eb.920a4","name":"","active":false,"console":"false","complete":"true","x":382.5,"y":186.5,"wires":[]},{"id":"fd27bce8.50d0a8","type":"http request","z":"6a9908eb.920a4","name":"","method":"GET","ret":"txt","url":"","tls":"","x":292.5,"y":353.75,"wires":[["6eb9381e.e3f24"]]},{"id":"297051af.53cc36","type":"function","z":"6a9908eb.920a4","name":"","func":"msg.headers = {\"Authorization\": \"bearer \"+msg.token};\nmsg.url = \"http://agile-idm:3000/oauth2/api/userinfo\"\nmsg.method = \"GET\";\nreturn msg;","outputs":1,"noerr":0,"x":252.5,"y":265.75,"wires":[["fd27bce8.50d0a8"]]},{"id":"6eb9381e.e3f24","type":"debug","z":"6a9908eb.920a4","name":"","active":true,"console":"false","complete":"false","x":470.5,"y":354.5,"wires":[]}]
-```
-
 ## Overview:
 
 We use a [Raspberry pi](https://www.raspberrypi.org/) as a remote to [docker-compose](https://docs.docker.com/compose/overview/) on our work machine. This allows us to work as we would on our x86 machine and push changes over the local network to the docker engine running on the arm device (the Raspberry pi), which rebuilds/restarts the containers and gives us back the logs.
@@ -103,6 +72,16 @@ bash push.sh <IP-address>
 ```
 curl -X POST -H "Content-Type: application/json" -H "Cache-Control: no-cache" "resin.local:8080/api/protocols/discovery"
 ```
+
+### Logging in and trying Node-RED
+
+Go to <IP-address>:8000 and login with  user: agile and password: secret  through the OSJS interface.
+
+Then you can deploy the following flow to get the user information for the user who is currently logged in:
+```
+[{"id":"b92b4272.3dc098","type":"idm-token","z":"6a9908eb.920a4","name":"","tokensource":"session","idm":"http://localhost:3000","x":204.5,"y":187.75,"wires":[["d0c1ae6.805175","297051af.53cc36"]]},{"id":"edca8fbb.5813d8","type":"inject","z":"6a9908eb.920a4","name":"","topic":"","payload":"","payloadType":"date","repeat":"","crontab":"","once":false,"x":111.5,"y":107.25,"wires":[["b92b4272.3dc098"]]},{"id":"d0c1ae6.805175","type":"debug","z":"6a9908eb.920a4","name":"","active":false,"console":"false","complete":"true","x":382.5,"y":186.5,"wires":[]},{"id":"fd27bce8.50d0a8","type":"http request","z":"6a9908eb.920a4","name":"","method":"GET","ret":"txt","url":"","tls":"","x":292.5,"y":353.75,"wires":[["6eb9381e.e3f24"]]},{"id":"297051af.53cc36","type":"function","z":"6a9908eb.920a4","name":"","func":"msg.headers = {\"Authorization\": \"bearer \"+msg.token};\nmsg.url = \"http://agile-idm:3000/oauth2/api/userinfo\"\nmsg.method = \"GET\";\nreturn msg;","outputs":1,"noerr":0,"x":252.5,"y":265.75,"wires":[["fd27bce8.50d0a8"]]},{"id":"6eb9381e.e3f24","type":"debug","z":"6a9908eb.920a4","name":"","active":true,"console":"false","complete":"false","x":470.5,"y":354.5,"wires":[]}]
+```
+
 
 ### Developing
 
