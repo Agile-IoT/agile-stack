@@ -54,7 +54,7 @@ __NOTE__ ensure you download a `-dev` image. The dev image exposes the hostOS po
 git clone https://github.com/agile-iot/agile-stack & cd /agile-stack
 ```
 
-* Edit `.env` and add your devices hostname. (default is `resin.local`)
+* Copy `example.env` to `.env` and customize it by adding your devices hostname. (default is `resin.local`)
 
 * Disable BLE
 ```
