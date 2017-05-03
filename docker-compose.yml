@@ -1,10 +1,13 @@
 version: '2'
 
 services:
-  # agile-example:
-  #   build: apps/agile-example
-  #   ports:
-  #    - 80:80/tcp
+#  agile-example:
+#    container_name: agile-example
+#    build: apps/agile-example
+#    # image: agileiot/agile-example-armv7l:v0.1.1
+#    depends_on:
+#      - agile-core
+#    command: node index.js
 
   agile-dbus:
     container_name: agile-dbus
@@ -90,27 +93,27 @@ services:
       - agile-core:agile
     restart: always
 
-#  agile-zb:
-#    container_name: agile-zb
-#    image: agileiot/agile-zb-armv7l
-#    # build: apps/agile-zb
-#    depends_on:
-#      - agile-dbus
-#    devices:
-#      - dev/ttyUSB0:/dev/ttyUSB0
-#    volumes:
-#      - $DBUS_SESSION_SOCKET_DIR:/usr/src/app/.agile_bus
-#    environment:
-#      - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/.agile_bus/agile_bus_socket
-#    command: python3 dbus_server/dbus_server.py
-
-#  agile-zb-lamp:
-#    container_name: agile-zb-lamp
-#    image: agileiot/agile-zb-armv7l
-#    depends_on:
-#      - agile-zb
-#    volumes:
-#      - $DBUS_SESSION_SOCKET_DIR:/usr/src/app/.agile_bus
-#    environment:
-#      - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/.agile_bus/agile_bus_socket
-#    command: python3 ge_link_bulb/ge_link_bulb_device.py
+ # agile-zb:
+ #   container_name: agile-zb
+ #   image: agileiot/agile-zb-armv7l
+ #   # build: apps/agile-zb
+ #   depends_on:
+ #     - agile-dbus
+ #   devices:
+ #     - dev/ttyUSB0:/dev/ttyUSB0
+ #   volumes:
+ #     - $DBUS_SESSION_SOCKET_DIR:/usr/src/app/.agile_bus
+ #   environment:
+ #     - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/.agile_bus/agile_bus_socket
+ #   command: python3 dbus_server/dbus_server.py
+ #
+ # agile-zb-lamp:
+ #   container_name: agile-zb-lamp
+ #   image: agileiot/agile-zb-armv7l
+ #   depends_on:
+ #     - agile-zb
+ #   volumes:
+ #     - $DBUS_SESSION_SOCKET_DIR:/usr/src/app/.agile_bus
+ #   environment:
+ #     - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/.agile_bus/agile_bus_socket
+ #   command: python3 ge_link_bulb/ge_link_bulb_device.py
