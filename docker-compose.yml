@@ -1,13 +1,13 @@
 version: '2'
 
 services:
-  agile-example:
-    container_name: agile-example
-    build: apps/agile-example
-    # image: agileiot/agile-example-armv7l:v0.1.1
-    depends_on:
-      - agile-core
-    command: node index.js
+#  agile-example:
+#    container_name: agile-example
+#    build: apps/agile-example
+#    # image: agileiot/agile-example-armv7l:v0.1.1
+#    depends_on:
+#      - agile-core
+#    command: node index.js
 
   agile-dbus:
     container_name: agile-dbus
