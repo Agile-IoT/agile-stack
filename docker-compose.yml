@@ -4,14 +4,14 @@ services:
 #  agile-example:
 #    container_name: agile-example
 #    build: apps/agile-example
-#    # image: agileiot/agile-example-armv7l:v0.1.1
+#    # image: agileiot/agile-example-$AGILE_ARCH:v0.1.1
 #    depends_on:
 #      - agile-core
 #    command: node index.js
 
   agile-dbus:
     container_name: agile-dbus
-    image: agileiot/agile-dbus-armv7l:v0.1.0
+    image: agileiot/agile-dbus-$AGILE_ARCH:v0.1.0
     # build: apps/agile-dbus
     restart: always
     volumes:
@@ -19,7 +19,7 @@ services:
 
   agile-core:
     container_name: agile-core
-    image: agileiot/agile-core-armv7l:v0.1.3
+    image: agileiot/agile-core-$AGILE_ARCH:v0.1.3
     # build: apps/agile-core
     depends_on:
       - agile-dbus
@@ -35,7 +35,7 @@ services:
 
   agile-ble:
     container_name: agile-ble
-    image: agileiot/agile-ble-armv7l:v0.1.3
+    image: agileiot/agile-ble-$AGILE_ARCH:v0.1.3
     # build: apps/agile-core
     depends_on:
       - agile-dbus
@@ -50,7 +50,7 @@ services:
 
   agile-dummy:
     container_name: agile-dummy
-    image: agileiot/agile-dummy-armv7l:v0.1.0
+    image: agileiot/agile-dummy-$AGILE_ARCH:v0.1.0
     # build: apps/agile-dummy-protocol
     depends_on:
       - agile-dbus
@@ -62,7 +62,7 @@ services:
 
   agile-ui:
     container_name: agile-ui
-    image: agileiot/agile-ui-armv7l:v0.1.1
+    image: agileiot/agile-ui-$AGILE_ARCH:v0.1.1
     # build: apps/agile-ui
     restart: always
     depends_on:
@@ -72,7 +72,7 @@ services:
 
   agile-osjs:
     container_name: agile-osjs
-    image: agileiot/agile-osjs-armv7l:v0.1.0
+    image: agileiot/agile-osjs-$AGILE_ARCH:v0.1.0
     # build: apps/agile-osjs
     depends_on:
       - agile-core
@@ -82,7 +82,7 @@ services:
 
   agile-nodered:
     container_name: agile-nodered
-    image: agileiot/agile-nodered-armv7l:v0.1.0
+    image: agileiot/agile-nodered-$AGILE_ARCH:v0.1.0
     # build: apps/agile-nodered
     hostname: agile-nodered
     volumes:
@@ -103,7 +103,7 @@ services:
 
  # agile-zb:
  #   container_name: agile-zb
- #   image: agileiot/agile-zb-armv7l
+ #   image: agileiot/agile-zb-$AGILE_ARCH
  #   # build: apps/agile-zb
  #   depends_on:
  #     - agile-dbus
@@ -117,7 +117,7 @@ services:
  #
  # agile-zb-lamp:
  #   container_name: agile-zb-lamp
- #   image: agileiot/agile-zb-armv7l
+ #   image: agileiot/agile-zb-$AGILE_ARCH
  #   depends_on:
  #     - agile-zb
  #   volumes:
