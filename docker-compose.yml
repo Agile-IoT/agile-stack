@@ -31,7 +31,6 @@ services:
       - 8080:8080/tcp
     restart: always
     privileged: true
-    command: bash -c "scripts/start.sh DeviceManager & scripts/start.sh ProtocolManager & scripts/start.sh http"
 
   agile-ble:
     container_name: agile-ble
