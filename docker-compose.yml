@@ -74,6 +74,8 @@ services:
     # build: apps/agile-osjs
     depends_on:
       - agile-core
+    environment:
+      - AGILE_HOST=$AGILE_HOST
     ports:
       - 8000:8000/tcp
     restart: always
@@ -103,6 +105,7 @@ services:
       - /etc/hostname:/etc/hostname
     environment:
       - DOCKER_CONF=/root/idm.conf
+      - AGILE_HOST=$AGILE_HOST
     ports:
       - 3000:3000/tcp
       - 1444:1444/tcp
