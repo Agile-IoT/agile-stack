@@ -18,39 +18,35 @@ It's a simple 3 step process (I wont count [requirements](#requirements))
 - Software:
   * [docker + docker-compose](https://docs.docker.com/compose/install/)
   * [Node.js + npm](https://nodejs.org/en/)
-  * [resin device toolbox (`rdt`)](https://www.npmjs.com/package/resin-device-toolbox)
+  * [resin CLI](https://www.npmjs.com/package/resin-cli)
+  * [etcher](https://etcher.io/)
 - Hardware:
   * Raspberry pi 2 or 3
   * SD card `>= 8gb`
-  * Wifi dongle or ethernet cable
-  * Bluetooth dongle
+  * Wifi dongle or ethernet cable *optional if you have the pi3*
+  * Bluetooth dongle *optional if you have the pi3*
 
 ### Setup your resinOS device
 
-* Download the OS:
-```
-wget https://files.resin.io/resinos/raspberrypi3/2.0.0-beta.1/resin-dev.zip
-```
+* Sign up with [resin.io](https://dashboard.resin.io/signup)
 
-* Unzip the image download to find `resin.img`
+* Share your account email with [craig-mulligan](mailto:craig@resin.io) and I'll add you as a collaborator on the agile application.
 
-* Configure the image (*only needed if you are using wifi*)
-```
-rdt configure ~/Downloads/resin.img
-```
+* Download your app image.
 
-* Plug in your SD card
-* Flash the image (use arrow keys to select correct drive)
-```
-$ sudo rdt flash ~/Downloads/resin.img
-Password:
-? Select drive (Use arrow keys)
-❯ /dev/disk3 (7.9 GB) - STORAGE DEVICE
-```
+__NOTE__ ensure you download a `-dev` image. The dev image exposes the hostOS ports and allows us to do local builds.
 
-* Boot the device
-* Check that it's on the local network: `$ ping resin.local` or `$ rdt scan`.
-* If it is not on the local network, you can still use the device, but you need to know its IP address.
+* Burn the image to and SD card. There are a variety of ways to do this. I suggest using [etcher](https://etcher.io/).
+
+* Boot the device, and check the resin dashboard. In ~30s you should see a device in the dashboard.
+
+* In the resin.io dashboard select application, select device, select actions -> enable `local-mode`.
+
+* Ensure you have the CLI installed `$ npm i -g resin-cli`
+
+* Check if the device is accessible on your local network `$ resin local scan`.
+
+* If the scan returns nothing, check the devices IP address on the resin dashboard.
 
 ### Start the agile services
 * First clone this repo:
@@ -58,19 +54,16 @@ Password:
 git clone https://github.com/agile-iot/agile-stack & cd /agile-stack
 ```
 
-* Deploy agile services:
+* Copy `example.env` to `.env` and customize it by adding your devices hostname. (default is `resin.local`)
+
+* Disable BLE
 ```
-bash push.sh
+ssh root@resin.local '/usr/bin/hciattach /dev/ttyAMA0 bcm43xx 921600 noflow - ; systemctl stop bluetooth'
 ```
 
-If the gateway is not on the local network:
+* Deploy
 ```
-bash push.sh <IP-address>
-```
-
-* If everything looks good. Turn on the protocol discovery.
-```
-curl -X POST -H "Content-Type: application/json" -H "Cache-Control: no-cache" "resin.local:8080/api/protocols/discovery"
+docker-compose up
 ```
 
 ### Logging in and trying Node-RED
@@ -81,7 +74,6 @@ Then you can deploy the following flow to get the user information for the user 
 ```
 [{"id":"b92b4272.3dc098","type":"idm-token","z":"6a9908eb.920a4","name":"","tokensource":"session","idm":"http://localhost:3000","x":204.5,"y":187.75,"wires":[["d0c1ae6.805175","297051af.53cc36"]]},{"id":"edca8fbb.5813d8","type":"inject","z":"6a9908eb.920a4","name":"","topic":"","payload":"","payloadType":"date","repeat":"","crontab":"","once":false,"x":111.5,"y":107.25,"wires":[["b92b4272.3dc098"]]},{"id":"d0c1ae6.805175","type":"debug","z":"6a9908eb.920a4","name":"","active":false,"console":"false","complete":"true","x":382.5,"y":186.5,"wires":[]},{"id":"fd27bce8.50d0a8","type":"http request","z":"6a9908eb.920a4","name":"","method":"GET","ret":"txt","url":"","tls":"","x":292.5,"y":353.75,"wires":[["6eb9381e.e3f24"]]},{"id":"297051af.53cc36","type":"function","z":"6a9908eb.920a4","name":"","func":"msg.headers = {\"Authorization\": \"bearer \"+msg.token};\nmsg.url = \"http://agile-idm:3000/oauth2/api/userinfo\"\nmsg.method = \"GET\";\nreturn msg;","outputs":1,"noerr":0,"x":252.5,"y":265.75,"wires":[["fd27bce8.50d0a8"]]},{"id":"6eb9381e.e3f24","type":"debug","z":"6a9908eb.920a4","name":"","active":true,"console":"false","complete":"false","x":470.5,"y":354.5,"wires":[]}]
 ```
-
 
 ### Developing
 
@@ -142,7 +134,7 @@ $ ssh root@resin.local -p22222
 
 To ssh into one of the containers:
 ```
-$ rdt ssh resin.local
+$ resin local ssh resin.local
 ```
 
 #### Troubleshooting
