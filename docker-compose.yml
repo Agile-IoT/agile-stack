@@ -70,7 +70,7 @@ services:
       - 2000:1337/tcp
 
   agile-osjs:
-    image: agileiot/agile-osjs-armv7l:idm
+    image: agileiot/agile-osjs-$AGILE_ARCH
     # build: apps/agile-osjs
     depends_on:
       - agile-core
@@ -83,7 +83,7 @@ services:
       - /etc/hostname:/etc/hostname
 
   agile-nodered:
-    image: agileiot/agile-nodered-armv7l:security-merge
+    image: agileiot/agile-nodered-$AGILE_ARCH
     container_name: agile-nodered
     # build: apps/agile-nodered
     hostname: agile-nodered
@@ -96,7 +96,7 @@ services:
     restart: always
 
   agile-idm:
-    image: agileiot/agile-idm-armv7l
+    image: agileiot/agile-idm-$AGILE_ARCH
     #build: apps/agile-idm-web-ui
     hostname: agile-idm
     volumes:
