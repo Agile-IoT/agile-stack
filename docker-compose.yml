@@ -25,6 +25,7 @@ services:
       - agile-dbus
     volumes:
       - $DBUS_SESSION_SOCKET_DIR:/usr/src/app/.agile_bus
+      - $DATA/core/plugins:/usr/src/app/plugins
     environment:
       - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/.agile_bus/agile_bus_socket
     ports:
