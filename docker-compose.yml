@@ -90,7 +90,7 @@ services:
     # build: apps/agile-nodered
     hostname: agile-nodered
     volumes:
-      - $DATA/nodered:/root/.node-red
+      - $DATA/nodered:/opt/secure-nodered/.nodered/
     ports:
       - 1880:1880/tcp
     links:
