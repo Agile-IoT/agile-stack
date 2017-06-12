@@ -12,6 +12,7 @@ services:
   agile-dbus:
     container_name: agile-dbus
     image: agileiot/agile-dbus-$AGILE_ARCH
+    build: https://github.com/Agile-IoT/agile-dbus.git
     # build: apps/agile-dbus
     restart: always
     volumes:
@@ -20,6 +21,7 @@ services:
   agile-core:
     container_name: agile-core
     image: agileiot/agile-core-$AGILE_ARCH
+    build: https://github.com/Agile-IoT/agile-core.git
     # build: apps/agile-core
     depends_on:
       - agile-dbus
@@ -36,6 +38,7 @@ services:
   agile-ble:
     container_name: agile-ble
     image: agileiot/agile-ble-$AGILE_ARCH
+    build: https://github.com/Agile-IoT/agile-ble.git
     # build: apps/agile-core
     depends_on:
       - agile-dbus
@@ -51,6 +54,7 @@ services:
   agile-dummy:
     container_name: agile-dummy
     image: agileiot/agile-dummy-$AGILE_ARCH
+    build: https://github.com/Agile-IoT/agile-dummy-protocol.git
     # build: apps/agile-dummy-protocol
     depends_on:
       - agile-dbus
@@ -63,6 +67,7 @@ services:
   agile-ui:
     container_name: agile-ui
     image: agileiot/agile-ui-$AGILE_ARCH
+    build: https://github.com/Agile-IoT/agile-ui.git
     # build: apps/agile-ui
     restart: always
     depends_on:
@@ -73,6 +78,7 @@ services:
   agile-osjs:
     container_name: agile-osjs
     image: agileiot/agile-osjs-$AGILE_ARCH
+    build: https://github.com/Agile-IoT/agile-osjs.git
     # build: apps/agile-osjs
     depends_on:
       - agile-core
@@ -87,6 +93,7 @@ services:
   agile-nodered:
     image: agileiot/agile-nodered-$AGILE_ARCH
     container_name: agile-nodered
+    build: https://github.com/Agile-IoT/agile-nodered.git
     # build: apps/agile-nodered
     hostname: agile-nodered
     volumes:
@@ -100,6 +107,7 @@ services:
   agile-idm:
     container_name: agile-idm
     image: agileiot/agile-idm-$AGILE_ARCH
+    build: https://github.com/Agile-IoT/agile-idm.git
     #build: apps/agile-idm-web-ui
     hostname: agile-idm
     volumes:
