@@ -19,7 +19,7 @@ services:
 
   agile-core:
     container_name: agile-core
-    image: agileiot/agile-core-$AGILE_ARCH:v0.1.3
+    image: agileiot/agile-core-$AGILE_ARCH:v0.2.1
     # build: apps/agile-core
     depends_on:
       - agile-dbus
@@ -35,7 +35,7 @@ services:
 
   agile-ble:
     container_name: agile-ble
-    image: agileiot/agile-ble-$AGILE_ARCH:v0.1.3
+    image: agileiot/agile-ble-$AGILE_ARCH:v0.1.5
     # build: apps/agile-core
     depends_on:
       - agile-dbus
@@ -50,7 +50,7 @@ services:
 
   agile-dummy:
     container_name: agile-dummy
-    image: agileiot/agile-dummy-$AGILE_ARCH:v0.1.0
+    image: agileiot/agile-dummy-$AGILE_ARCH:v0.2.0
     # build: apps/agile-dummy-protocol
     depends_on:
       - agile-dbus
@@ -62,7 +62,7 @@ services:
 
   agile-ui:
     container_name: agile-ui
-    image: agileiot/agile-ui-$AGILE_ARCH:v0.1.1
+    image: agileiot/agile-ui-$AGILE_ARCH:v0.3.5
     # build: apps/agile-ui
     restart: always
     depends_on:
@@ -72,7 +72,7 @@ services:
 
   agile-osjs:
     container_name: agile-osjs
-    image: agileiot/agile-osjs-$AGILE_ARCH
+    image: agileiot/agile-osjs-$AGILE_ARCH:v0.1.0
     # build: apps/agile-osjs
     depends_on:
       - agile-core
@@ -85,7 +85,7 @@ services:
       - /etc/hostname:/etc/hostname
 
   agile-nodered:
-    image: agileiot/agile-nodered-$AGILE_ARCH
+    image: agileiot/agile-nodered-$AGILE_ARCH:v0.1.0
     container_name: agile-nodered
     # build: apps/agile-nodered
     hostname: agile-nodered
