@@ -19,7 +19,7 @@ services:
 
   agile-core:
     container_name: agile-core
-    image: agileiot/agile-core-$AGILE_ARCH:v0.2.1
+    image: agileiot/agile-core-$AGILE_ARCH:v0.2.2
     # build: apps/agile-core
     depends_on:
       - agile-dbus
@@ -35,7 +35,7 @@ services:
 
   agile-ble:
     container_name: agile-ble
-    image: agileiot/agile-ble-$AGILE_ARCH:v0.1.5
+    image: agileiot/agile-ble-$AGILE_ARCH:v0.1.6
     # build: apps/agile-core
     depends_on:
       - agile-dbus
@@ -50,7 +50,7 @@ services:
 
   agile-dummy:
     container_name: agile-dummy
-    image: agileiot/agile-dummy-$AGILE_ARCH:v0.2.0
+    image: agileiot/agile-dummy-$AGILE_ARCH:v0.2.1
     # build: apps/agile-dummy-protocol
     depends_on:
       - agile-dbus
