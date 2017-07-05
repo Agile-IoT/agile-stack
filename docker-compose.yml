@@ -19,8 +19,8 @@ services:
 
   agile-core:
     container_name: agile-core
-    image: agileiot/agile-core-$AGILE_ARCH
     # build: apps/agile-core
+    image: agileiot/agile-core-$AGILE_ARCH:zulujdk
     depends_on:
       - agile-dbus
     volumes:
@@ -35,8 +35,8 @@ services:
 
   agile-ble:
     container_name: agile-ble
-    image: agileiot/agile-ble-$AGILE_ARCH
     # build: apps/agile-core
+    image: agileiot/agile-ble-$AGILE_ARCH:zulujdk
     depends_on:
       - agile-dbus
     volumes:
@@ -50,8 +50,8 @@ services:
 
   agile-dummy:
     container_name: agile-dummy
-    image: agileiot/agile-dummy-$AGILE_ARCH
     # build: apps/agile-dummy-protocol
+    image: agileiot/agile-dummy-$AGILE_ARCH:zulujdk
     depends_on:
       - agile-dbus
     volumes:
@@ -117,8 +117,8 @@ services:
 
   agile-recommenderandconfigurator:
     container_name: agile-recommenderandconfigurator
-    image: agileiot/recommenderandconfigurator:v1.0
     # build: apps/agile-recommenderandconfigurator
+    image: agileiot/recommenderandconfigurator-$AGILE_ARCH:zulujdk
     restart: always
     ports:
       - 8090:8090/tcp
