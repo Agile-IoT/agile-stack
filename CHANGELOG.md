@@ -6,6 +6,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## v0.1.4 - 2017-07-05
 
+# Updating Java components to use ZuluJDK [Csaba Kiraly]
+
+## v0.1.4 - 2017-07-05
+
 # Updating component versions [Csaba Kiraly]
 
 ## v0.1.3 - 2017-05-08
