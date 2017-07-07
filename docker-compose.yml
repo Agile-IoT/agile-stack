@@ -117,7 +117,7 @@ services:
 
   agile-recommenderandconfigurator:
     container_name: agile-recommenderandconfigurator
-    image: agileiot/recommenderandconfigurator:v1.0
+    image: agileiot/recommenderandconfigurator-$AGILE_ARCH:v1.0
     # build: apps/agile-recommenderandconfigurator
     restart: always
     ports:
