@@ -72,7 +72,7 @@ services:
 
   agile-osjs:
     container_name: agile-osjs
-    image: agileiot/agile-osjs-$AGILE_ARCH:v0.1.1
+    image: agileiot/agile-osjs-$AGILE_ARCH:v0.1.3
     # build: apps/agile-osjs
     depends_on:
       - agile-core
@@ -85,7 +85,7 @@ services:
       - /etc/hostname:/etc/hostname
 
   agile-nodered:
-    image: agileiot/agile-nodered-$AGILE_ARCH:v0.1.3
+    image: agileiot/agile-nodered-$AGILE_ARCH:v0.1.5
     container_name: agile-nodered
     # build: apps/agile-nodered
     hostname: agile-nodered
@@ -99,7 +99,7 @@ services:
 
   agile-security:
     container_name: agile-security
-    image: agileiot/agile-security-$AGILE_ARCH:v1.0.3
+    image: agileiot/agile-security-$AGILE_ARCH:v1.0.4
     #build: apps/agile-security
     hostname: agile-security
     volumes:
