@@ -85,7 +85,7 @@ services:
       - /etc/hostname:/etc/hostname
 
   agile-nodered:
-    image: agileiot/agile-nodered-$AGILE_ARCH:v0.1.0
+    image: agileiot/agile-nodered-$AGILE_ARCH:v0.1.3
     container_name: agile-nodered
     # build: apps/agile-nodered
     hostname: agile-nodered
