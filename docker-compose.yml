@@ -62,7 +62,7 @@ services:
 
   agile-ui:
     container_name: agile-ui
-    image: agileiot/agile-ui-$AGILE_ARCH:v0.3.5
+    image: agileiot/agile-ui-$AGILE_ARCH:v0.3.7
     # build: apps/agile-ui
     restart: always
     depends_on:
@@ -72,7 +72,7 @@ services:
 
   agile-osjs:
     container_name: agile-osjs
-    image: agileiot/agile-osjs-$AGILE_ARCH:v0.1.0
+    image: agileiot/agile-osjs-$AGILE_ARCH:v0.1.3
     # build: apps/agile-osjs
     depends_on:
       - agile-core
@@ -85,7 +85,7 @@ services:
       - /etc/hostname:/etc/hostname
 
   agile-nodered:
-    image: agileiot/agile-nodered-$AGILE_ARCH:v0.1.0
+    image: agileiot/agile-nodered-$AGILE_ARCH:v0.1.5
     container_name: agile-nodered
     # build: apps/agile-nodered
     hostname: agile-nodered
@@ -97,23 +97,23 @@ services:
       - agile-core:agile
     restart: always
 
-#  agile-idm:
-#    container_name: agile-idm
-#    image: agileiot/agile-idm-$AGILE_ARCH
-#    #build: apps/agile-idm-web-ui
-#    hostname: agile-idm
-#    volumes:
-#      - $DATA/idm/conf:/root/idm.conf
-#      - $DATA/idm/db:/root/idm.db
-#      - /etc/hostname:/etc/hostname
-#    environment:
-#      - DOCKER_CONF=/root/idm.conf
-#      - AGILE_HOST=$AGILE_HOST
-#    ports:
-#      - 3000:3000/tcp
-#      - 1444:1444/tcp
-#      - 1443:1443/tcp
-#    restart: always
+  agile-security:
+    container_name: agile-security
+    image: agileiot/agile-security-$AGILE_ARCH:v1.0.4
+    #build: apps/agile-security
+    hostname: agile-security
+    volumes:
+      - $DATA/security/idm/conf:/root/idm.conf
+      - $DATA/security/idm/db:/root/idm.db
+      - /etc/hostname:/etc/hostname
+    environment:
+      - DOCKER_CONF=/root/idm.conf
+      - AGILE_HOST=$AGILE_HOST
+    ports:
+      - 3000:3000/tcp
+      - 1444:1444/tcp
+      - 1443:1443/tcp
+    restart: always
 
 #  agile-recommenderandconfigurator:
 #    container_name: agile-recommenderandconfigurator
