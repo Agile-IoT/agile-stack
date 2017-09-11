@@ -127,7 +127,7 @@ services:
 
   agile-recommender:
     container_name: agile-recommender
-    image: agileiot/agile-recommender-$AGILE_ARCH:latest
+    image: agileiot/agile-recommender-$AGILE_ARCH:v0.2.0
     # build: apps/agile-recommender
     restart: always
     ports:
