@@ -125,10 +125,10 @@ services:
       - 1443:1443/tcp
     restart: always
 
-  agile-recommenderandconfigurator:
-    container_name: agile-recommenderandconfigurator
-    image: agileiot/recommenderandconfigurator-$AGILE_ARCH:latest
-    # build: apps/agile-recommenderandconfigurator
+  agile-recommender:
+    container_name: agile-recommender
+    image: agileiot/agile-recommender-$AGILE_ARCH:latest
+    # build: apps/agile-recommender
     restart: always
     ports:
       - 8090:8090/tcp
