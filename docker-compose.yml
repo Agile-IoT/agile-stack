@@ -4,7 +4,7 @@
 # are made available under the terms of the Eclipse Public License v1.0
 # which accompanies this distribution, and is available at
 # http://www.eclipse.org/legal/epl-v10.html
-# 
+#
 # Contributors:
 #     Resin.io, UNI Passau, FBK - initial API and implementation
 #-------------------------------------------------------------------------------
@@ -124,6 +124,17 @@ services:
       - 1444:1444/tcp
       - 1443:1443/tcp
     restart: always
+
+  agile-data:
+    container_name: agile-data
+    image: agileiot/agile-data-$AGILE_ARCH:v0.0.9
+    # build: apps/agile-data
+    restart: always
+    depends_on:
+      - agile-security
+      - agile-core
+    ports:
+      - 1338:1338/tcp
 
 #  agile-recommenderandconfigurator:
 #    container_name: agile-recommenderandconfigurator
