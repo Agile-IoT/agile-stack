@@ -95,7 +95,7 @@ services:
       - /etc/hostname:/etc/hostname
 
   agile-nodered:
-    image: agileiot/agile-nodered-$AGILE_ARCH:v0.1.5
+    image: agileiot/agile-nodered-$AGILE_ARCH:v0.1.7
     container_name: agile-nodered
     # build: apps/agile-nodered
     hostname: agile-nodered
@@ -125,13 +125,13 @@ services:
       - 1443:1443/tcp
     restart: always
 
-#  agile-recommenderandconfigurator:
-#    container_name: agile-recommenderandconfigurator
-#    image: agileiot/recommenderandconfigurator-$AGILE_ARCH:v1.0
-#    # build: apps/agile-recommenderandconfigurator
-#    restart: always
-#    ports:
-#      - 8090:8090/tcp
+  agile-recommender:
+    container_name: agile-recommender
+    image: agileiot/agile-recommender-$AGILE_ARCH:v0.2.0
+    # build: apps/agile-recommender
+    restart: always
+    ports:
+      - 8090:8090/tcp
 
  # agile-zb:
  #   container_name: agile-zb
