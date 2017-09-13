@@ -29,7 +29,7 @@ services:
 
   agile-core:
     container_name: agile-core
-    image: agileiot/agile-core-$AGILE_ARCH:v0.2.2
+    image: agileiot/agile-core-$AGILE_ARCH:v0.2.3
     # build: apps/agile-core
     depends_on:
       - agile-dbus
