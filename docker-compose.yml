@@ -95,9 +95,9 @@ services:
       - /etc/hostname:/etc/hostname
 
   agile-nodered:
-    image: agileiot/agile-nodered-$AGILE_ARCH:recommender-node-merge
+    image: agileiot/agile-nodered-$AGILE_ARCH
     container_name: agile-nodered
-    # build: apps/agile-nodered
+   # build: apps/agile-nodered
     hostname: agile-nodered
     volumes:
       - $DATA/nodered:/opt/secure-nodered/.nodered/
