@@ -29,7 +29,7 @@ services:
 
   agile-core:
     container_name: agile-core
-    image: agileiot/agile-core-$AGILE_ARCH:v0.2.2
+    image: agileiot/agile-core-$AGILE_ARCH:v0.2.3
     hostname: agile-core
     # build: apps/agile-core
     depends_on:
@@ -96,7 +96,7 @@ services:
       - /etc/hostname:/etc/hostname
 
   agile-nodered:
-    image: agileiot/agile-nodered-$AGILE_ARCH:v0.1.5
+    image: agileiot/agile-nodered-$AGILE_ARCH:v0.1.7
     container_name: agile-nodered
     # build: apps/agile-nodered
     hostname: agile-nodered
@@ -138,13 +138,13 @@ services:
     ports:
       - 1338:1338/tcp
 
-#  agile-recommenderandconfigurator:
-#    container_name: agile-recommenderandconfigurator
-#    image: agileiot/recommenderandconfigurator-$AGILE_ARCH:v1.0
-#    # build: apps/agile-recommenderandconfigurator
-#    restart: always
-#    ports:
-#      - 8090:8090/tcp
+  agile-recommender:
+    container_name: agile-recommender
+    image: agileiot/agile-recommender-$AGILE_ARCH:v0.2.0
+    # build: apps/agile-recommender
+    restart: always
+    ports:
+      - 8090:8090/tcp
 
  # agile-zb:
  #   container_name: agile-zb
