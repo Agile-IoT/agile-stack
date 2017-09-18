@@ -132,6 +132,8 @@ services:
     hostname: agile-data
     # build: apps/agile-data
     restart: always
+    environment:
+      - NODE_ENV=production
     depends_on:
       - agile-security
       - agile-core
