@@ -79,6 +79,9 @@ services:
     # build: apps/agile-core
     depends_on:
       - agile-dbus
+      - agile-devicemanager
+      - agile-devicefactory
+      - agile-protocolmanager
     volumes:
       - $DBUS_SESSION_SOCKET_DIR:/usr/src/app/.agile_bus
     environment:
@@ -119,6 +122,8 @@ services:
     container_name: agile-ui
     image: agileiot/agile-ui-$AGILE_ARCH:v0.3.7
     # build: apps/agile-ui
+    links:
+        - agile-http:agile-core
     restart: always
     depends_on:
       - agile-http
