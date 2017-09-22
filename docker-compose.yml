@@ -93,7 +93,7 @@ services:
 
   agile-ble:
     container_name: agile-ble
-    image: opny/agile-ble-$AGILE_ARCH:v0.1.6
+    image: opny/agile-ble-$AGILE_ARCH
     # build: apps/agile-ble
     depends_on:
       - agile-dbus
