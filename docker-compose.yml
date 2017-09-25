@@ -21,7 +21,7 @@ services:
 
   agile-dbus:
     container_name: agile-dbus
-    image: agileiot/agile-dbus-$AGILE_ARCH:v0.1.0
+    image: opny/agile-dbus-$AGILE_ARCH
     # build: apps/agile-dbus
     restart: always
     volumes:
