@@ -73,7 +73,7 @@ services:
 
   agile-ui:
     container_name: agile-ui
-    image: agileiot/agile-ui-$AGILE_ARCH:agile-data-ui
+    image: agileiot/agile-ui-$AGILE_ARCH:v0.5.0
     # build: apps/agile-ui
     restart: always
     depends_on:
