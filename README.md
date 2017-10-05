@@ -4,7 +4,7 @@
 # are made available under the terms of the Eclipse Public License v1.0
 # which accompanies this distribution, and is available at
 # http://www.eclipse.org/legal/epl-v10.html
-# 
+#
 # Contributors:
 #     Resin.io, UNI Passau, FBK - initial API and implementation
 -->
@@ -39,25 +39,36 @@ It's a simple 3 step process (I wont count [requirements](#requirements))
 
 ### Setup your resinOS device
 
-* Sign up with [resin.io](https://dashboard.resin.io/signup)
+* Download resinOS image from [resinos.io](https://resinos.io/#downloads-raspberrypi)
 
-* Share your account email with [craig-mulligan](mailto:craig@resin.io) and I'll add you as a collaborator on the agile application.
+* Install the resin cli:
+```
+$ npm i -g resin-cli
+```
 
-* Download your app image.
+* Configure the image
+```
+$ sudo resin local configure ~/Downloads/resin.img
+? Network SSID super_wifi
+? Network Key super secure password
+? Do you want to set advanced settings? Yes
+? Device Hostname resin
+? Do you want to enable persistent logging? no
+Done!
+```
 
-__NOTE__ ensure you download a `-dev` image. The dev image exposes the hostOS ports and allows us to do local builds.
+* Burn the image to an SD card. There are a variety of ways to do this. I suggest using [etcher](https://etcher.io/).
 
-* Burn the image to and SD card. There are a variety of ways to do this. I suggest using [etcher](https://etcher.io/).
+* Boot the device and check if you can connect to it by running:
 
-* Boot the device, and check the resin dashboard. In ~30s you should see a device in the dashboard.
+```
+ping resin.local
+```
 
-* In the resin.io dashboard select application, select device, select actions -> enable `local-mode`.
-
-* Ensure you have the CLI installed `$ npm i -g resin-cli`
-
-* Check if the device is accessible on your local network `$ resin local scan`.
-
-* If the scan returns nothing, check the devices IP address on the resin dashboard.
+* If ssh fails try scanning the local network for the device:
+```
+sudo resin local scan
+```
 
 ### Start the agile services
 * First clone this repo:
@@ -65,11 +76,9 @@ __NOTE__ ensure you download a `-dev` image. The dev image exposes the hostOS po
 git clone https://github.com/agile-iot/agile-stack & cd /agile-stack
 ```
 
-* Copy `example.env` to `.env` and customize it by adding your devices hostname. (default is `resin.local`)
-
 * Disable BLE
 ```
-ssh root@resin.local '/usr/bin/hciattach /dev/ttyAMA0 bcm43xx 921600 noflow - ; systemctl stop bluetooth'
+ssh root@resin.local -p22222 '/usr/bin/hciattach /dev/ttyAMA0 bcm43xx 921600 noflow - ; systemctl stop bluetooth'
 ```
 
 * Deploy
@@ -79,7 +88,7 @@ docker-compose up
 
 ### Logging in and trying Node-RED
 
-Go to <IP-address>:8000 and login with  user: agile and password: secret  through the OSJS interface.
+Go to resin-local:8000 and login with  user: agile and password: secret  through the OSJS interface.
 
 Then you can deploy the following flow to get the user information for the user who is currently logged in:
 ```
@@ -140,12 +149,12 @@ You may want to see what's going on in during runtime:
 
 To ssh into the host:
 ```
-$ ssh root@resin.local -p22222
+$ sudo resin local ssh resin.local --host
 ```
 
 To ssh into one of the containers:
 ```
-$ resin local ssh resin.local
+$ sudo resin local ssh resin.local
 ```
 
 #### Troubleshooting
