@@ -65,7 +65,7 @@ Done!
 ping resin.local
 ```
 
-* If ssh fails try scanning the local network for the device:
+* If ping fails try scanning the local network for the device:
 ```
 sudo resin local scan
 ```
