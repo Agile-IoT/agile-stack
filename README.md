@@ -81,9 +81,9 @@ git clone https://github.com/agile-iot/agile-stack & cd /agile-stack
 cp .env.example .env
 ```
 
-* Disable BLE
+* Enable the HCI adapter and disable the bluetooth daemon in the host
 ```
-ssh root@resin.local -p22222 '/usr/bin/hciattach /dev/ttyAMA0 bcm43xx 921600 noflow - ; systemctl stop bluetooth'
+ssh root@resin.local -p22222 'mount -o remount,rw / && systemctl disable bluetooth && sed -i "s/i2c-dev/i2c-dev\n\/usr\/bin\/hciattach \/dev\/ttyAMA0 bcm43xx 921600 noflow -/" /usr/bin/resin-init-board && /sbin/reboot'
 ```
 
 * Deploy
