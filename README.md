@@ -76,6 +76,11 @@ sudo resin local scan
 git clone https://github.com/agile-iot/agile-stack & cd /agile-stack
 ```
 
+* Copy `.env.example` to `.env` and customize it by adding your devices hostname. (default is `resin.local`)
+```
+cp .env.example .env
+```
+
 * Disable BLE
 ```
 ssh root@resin.local -p22222 '/usr/bin/hciattach /dev/ttyAMA0 bcm43xx 921600 noflow - ; systemctl stop bluetooth'
