@@ -29,7 +29,7 @@ services:
 
   agile-core:
     container_name: agile-core
-    image: agileiot/agile-core-$AGILE_ARCH:v0.2.6
+    image: agileiot/agile-core-$AGILE_ARCH:v0.2.7
     hostname: agile-core
     # build: apps/agile-core
     depends_on:
