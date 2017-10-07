@@ -30,7 +30,7 @@ services:
   agile-devicemanager:
     command: [ "bash", "/usr/src/app/scripts/start.sh", "DeviceManager" ]
     container_name: agile-devicemanager
-    image: agileiot/agile-core-$AGILE_ARCH:v0.2.6
+    image: agileiot/agile-core-$AGILE_ARCH:v0.2.7
     # build: apps/agile-core
     depends_on:
       - agile-dbus
@@ -45,7 +45,7 @@ services:
   agile-protocolmanager:
     command: [ "bash", "/usr/src/app/scripts/start.sh", "ProtocolManager" ]
     container_name: agile-protocolmanager
-    image: agileiot/agile-core-$AGILE_ARCH:v0.2.6
+    image: agileiot/agile-core-$AGILE_ARCH:v0.2.7
     # build: apps/agile-core
     depends_on:
       - agile-dbus
@@ -60,7 +60,7 @@ services:
   agile-devicefactory:
     command: [ "bash", "/usr/src/app/scripts/start.sh", "DeviceFactory" ]
     container_name: agile-devicefactory
-    image: agileiot/agile-core-$AGILE_ARCH:v0.2.6
+    image: agileiot/agile-core-$AGILE_ARCH:v0.2.7
     # build: apps/agile-core
     depends_on:
       - agile-dbus
@@ -75,7 +75,7 @@ services:
   agile-http:
     command: [ "bash", "/usr/src/app/scripts/start.sh", "http" ]
     container_name: agile-http
-    image: agileiot/agile-core-$AGILE_ARCH:v0.2.6
+    image: agileiot/agile-core-$AGILE_ARCH:v0.2.7
     # build: apps/agile-core
     depends_on:
       - agile-dbus
