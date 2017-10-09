@@ -16,7 +16,7 @@ services:
 #    build: apps/agile-example
 #    # image: agileiot/agile-example-$AGILE_ARCH:v0.1.1
 #    depends_on:
-#      - agile-core
+#      - agile-http
 #    command: node index.js
 
   agile-dbus:
@@ -27,16 +27,63 @@ services:
     volumes:
       - $DBUS_SESSION_SOCKET_DIR:/usr/src/app/.agile_bus
 
-  agile-core:
-    container_name: agile-core
+  agile-devicemanager:
+    command: [ "bash", "/usr/src/app/scripts/start.sh", "DeviceManager" ]
+    container_name: agile-devicemanager
     image: agileiot/agile-core-$AGILE_ARCH:v0.2.7
-    hostname: agile-core
     # build: apps/agile-core
     depends_on:
       - agile-dbus
     volumes:
       - $DBUS_SESSION_SOCKET_DIR:/usr/src/app/.agile_bus
       - $DATA/core/plugins:/usr/src/app/plugins
+    environment:
+      - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/.agile_bus/agile_bus_socket
+    restart: always
+    privileged: true
+
+  agile-protocolmanager:
+    command: [ "bash", "/usr/src/app/scripts/start.sh", "ProtocolManager" ]
+    container_name: agile-protocolmanager
+    image: agileiot/agile-core-$AGILE_ARCH:v0.2.7
+    # build: apps/agile-core
+    depends_on:
+      - agile-dbus
+    volumes:
+      - $DBUS_SESSION_SOCKET_DIR:/usr/src/app/.agile_bus
+      - $DATA/core/plugins:/usr/src/app/plugins
+    environment:
+      - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/.agile_bus/agile_bus_socket
+    restart: always
+    privileged: true
+
+  agile-devicefactory:
+    command: [ "bash", "/usr/src/app/scripts/start.sh", "DeviceFactory" ]
+    container_name: agile-devicefactory
+    image: agileiot/agile-core-$AGILE_ARCH:v0.2.7
+    # build: apps/agile-core
+    depends_on:
+      - agile-dbus
+    volumes:
+      - $DBUS_SESSION_SOCKET_DIR:/usr/src/app/.agile_bus
+      - $DATA/core/plugins:/usr/src/app/plugins
+    environment:
+      - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/.agile_bus/agile_bus_socket
+    restart: always
+    privileged: true
+
+  agile-http:
+    command: [ "bash", "/usr/src/app/scripts/start.sh", "http" ]
+    container_name: agile-http
+    image: agileiot/agile-core-$AGILE_ARCH:v0.2.7
+    # build: apps/agile-core
+    depends_on:
+      - agile-dbus
+      - agile-devicemanager
+      - agile-devicefactory
+      - agile-protocolmanager
+    volumes:
+      - $DBUS_SESSION_SOCKET_DIR:/usr/src/app/.agile_bus
     environment:
       - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/.agile_bus/agile_bus_socket
     ports:
@@ -75,9 +122,11 @@ services:
     container_name: agile-ui
     image: agileiot/agile-ui-$AGILE_ARCH:v0.5.0
     # build: apps/agile-ui
+    links:
+        - agile-http:agile-core
     restart: always
     depends_on:
-      - agile-core
+      - agile-http
     ports:
       - 2000:1337/tcp
 
@@ -86,7 +135,7 @@ services:
     image: agileiot/agile-osjs-$AGILE_ARCH:v0.1.4
     # build: apps/agile-osjs
     depends_on:
-      - agile-core
+      - agile-http
     environment:
       - AGILE_HOST=$AGILE_HOST
     ports:
@@ -105,7 +154,7 @@ services:
     ports:
       - 1880:1880/tcp
     links:
-      - agile-core:agile
+      - agile-http:agile
     restart: always
 
   agile-security:
@@ -136,7 +185,7 @@ services:
       - NODE_ENV=production
     depends_on:
       - agile-security
-      - agile-core
+      - agile-http
     ports:
       - 1338:1338/tcp
 
