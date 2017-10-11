@@ -16,7 +16,7 @@ services:
 #    build: apps/agile-example
 #    # image: agileiot/agile-example-$AGILE_ARCH:v0.1.1
 #    depends_on:
-#      - agile-http
+#      - agile-core
 #    command: node index.js
 
   agile-dbus:
@@ -72,9 +72,9 @@ services:
     restart: always
     privileged: true
 
-  agile-http:
+  agile-core:
     command: [ "bash", "/usr/src/app/scripts/start.sh", "http" ]
-    container_name: agile-http
+    container_name: agile-core
     image: agileiot/agile-core-$AGILE_ARCH:v0.2.7
     # build: apps/agile-core
     depends_on:
@@ -122,11 +122,9 @@ services:
     container_name: agile-ui
     image: agileiot/agile-ui-$AGILE_ARCH:v0.5.0
     # build: apps/agile-ui
-    links:
-        - agile-http:agile-core
     restart: always
     depends_on:
-      - agile-http
+      - agile-core
     ports:
       - 2000:1337/tcp
 
@@ -135,7 +133,7 @@ services:
     image: agileiot/agile-osjs-$AGILE_ARCH:v0.1.4
     # build: apps/agile-osjs
     depends_on:
-      - agile-http
+      - agile-core
     environment:
       - AGILE_HOST=$AGILE_HOST
     ports:
@@ -154,7 +152,7 @@ services:
     ports:
       - 1880:1880/tcp
     links:
-      - agile-http:agile
+      - agile-core:agile
     restart: always
 
   agile-security:
@@ -185,7 +183,7 @@ services:
       - NODE_ENV=production
     depends_on:
       - agile-security
-      - agile-http
+      - agile-core
     ports:
       - 1338:1338/tcp
 
