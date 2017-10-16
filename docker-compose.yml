@@ -93,7 +93,7 @@ services:
 
   agile-ble:
     container_name: agile-ble
-    image: agileiot/agile-ble-$AGILE_ARCH:v0.1.6
+    image: agileiot/agile-ble-$AGILE_ARCH:v0.1.8
     # build: apps/agile-ble
     depends_on:
       - agile-dbus
