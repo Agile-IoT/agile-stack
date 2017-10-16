@@ -108,7 +108,7 @@ services:
 
   agile-dummy:
     container_name: agile-dummy
-    image: agileiot/agile-dummy-$AGILE_ARCH:v0.2.1
+    image: agileiot/agile-dummy-$AGILE_ARCH:v0.2.3
     # build: apps/agile-dummy-protocol
     depends_on:
       - agile-dbus
