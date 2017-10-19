@@ -136,6 +136,7 @@ services:
       - agile-core
     environment:
       - AGILE_HOST=$AGILE_HOST
+      - AGILE_SSL=$AGILE_SSL
     ports:
       - 8000:8000/tcp
     restart: always
@@ -167,6 +168,7 @@ services:
     environment:
       - DOCKER_CONF=/root/idm.conf
       - AGILE_HOST=$AGILE_HOST
+      - NODE_TLS_REJECT_UNAUTHORIZED=0
     ports:
       - 3000:3000/tcp
       - 1444:1444/tcp

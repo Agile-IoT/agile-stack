@@ -73,7 +73,7 @@ sudo resin local scan
 ### Start the agile services
 * First clone this repo:
 ```
-git clone https://github.com/agile-iot/agile-stack & cd /agile-stack
+git clone https://github.com/agile-iot/agile-stack && cd /agile-stack
 ```
 
 * Copy `.env.example` to `.env` and customize it by adding your devices hostname. (default is `resin.local`)
