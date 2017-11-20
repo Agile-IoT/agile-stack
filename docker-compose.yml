@@ -120,7 +120,7 @@ services:
 
   agile-ui:
     container_name: agile-ui
-    image: agileiot/agile-ui-$AGILE_ARCH:v0.5.5
+    image: agileiot/agile-ui-$AGILE_ARCH:v0.5.7
     # build: apps/agile-ui
     restart: always
     depends_on:
