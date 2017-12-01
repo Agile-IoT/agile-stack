@@ -1,0 +1,64 @@
+#-------------------------------------------------------------------------------
+# Copyright (C) 2017 Resin.io, UNI Passau, FBK.
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Eclipse Public License v1.0
+# which accompanies this distribution, and is available at
+# http://www.eclipse.org/legal/epl-v10.html
+#
+# Contributors:
+#     Resin.io, UNI Passau, FBK - initial API and implementation
+#-------------------------------------------------------------------------------
+version: '2'
+
+# Usage:
+# rename this file to docker-compose.override.yml
+# - uncomment the line below containing "services"
+# - uncomment services which you would like to build locally
+# - (optional) uncomment the "image" line to build an image with the tag "dev"
+# - (optional): uncomment build args to build for other architectures
+# - (optional): override other parameters
+# - (optional): add new services
+
+services:
+
+#  agile-ui:
+#    image: agileiot/agile-ui-$AGILE_ARCH:dev
+#    build:
+#      context: ../modules/gui/agile-ui
+#      args:
+#        - BASEIMAGE_BUILD=resin/intel-nuc-node:7.8.0-20170506
+
+  agile-core:
+#    image: agileiot/agile-core-$AGILE_ARCH:dev
+    build:
+      context: ../modules/agile-core
+#      args:
+#        - BASEIMAGE_BUILD=agileiot/intel-nuc-zulujdk:8-jdk-maven
+#        - BASEIMAGE_DEPLOY=agileiot/intel-nuc-zulujdk:8-jre
+
+#  agile-devicemanager:
+#    image: agileiot/agile-core-$AGILE_ARCH:dev
+
+#  agile-devicefactory:
+#    image: agileiot/agile-core-$AGILE_ARCH:dev
+
+#  agile-protocolmanager:
+#    image: agileiot/agile-core-$AGILE_ARCH:dev
+
+  agile-recommender:
+#    image: agileiot/agile-recommender-$AGILE_ARCH:dev
+    build:
+      context: ../modules/agile-recommender
+#      args:
+#        - BASEIMAGE_BUILD=agileiot/intel-nuc-zulujdk:8-jdk-maven
+#        - BASEIMAGE_DEPLOY=agileiot/intel-nuc-zulujdk:8-jre
+
+  agile-ble:
+#    image: agileiot/agile-ble-$AGILE_ARCH:dev
+    build:
+      context: ../modules/protocol/agile-ble
+
+  agile-dummy:
+#    image: agileiot/agile-dummy-$AGILE_ARCH:dev
+    build:
+      context: ../modules/protocol/agile-dummy

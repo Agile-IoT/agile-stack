@@ -1,0 +1,74 @@
+#-------------------------------------------------------------------------------
+# Copyright (C) 2017 Resin.io, UNI Passau, FBK.
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Eclipse Public License v1.0
+# which accompanies this distribution, and is available at
+# http://www.eclipse.org/legal/epl-v10.html
+#
+# Contributors:
+#     Resin.io, UNI Passau, FBK - initial API and implementation
+#-------------------------------------------------------------------------------
+version: '2'
+
+# Usage:
+# rename this file to docker-compose.override.yml
+# - uncomment the line below containing "services"
+# - uncomment services which you would like to build locally
+# - (optional) uncomment the "image" line to build an image with the tag "dev"
+# - (optional): uncomment build args to build for other architectures
+# - (optional): override other parameters
+# - (optional): add new services
+
+services:
+
+  agile-dbus:
+    build:
+      context: ../modules/agile-dbus
+
+  agile-core:
+    build:
+      context: ../modules/agile-core
+
+  agile-devicemanager:
+    build:
+      context: ../modules/agile-core
+
+  agile-protocolmanager:
+    build:
+      context: ../modules/agile-core
+
+  agile-devicefactory:
+    build:
+      context: ../modules/agile-core
+
+  agile-ble:
+    build:
+      context: ../modules/protocol/agile-ble
+
+  agile-dummy:
+    build:
+      context: ../modules/protocol/agile-dummy
+
+  agile-ui:
+    build:
+      context: ../modules/gui/agile-ui
+
+  agile-osjs:
+    build:
+      context: ../modules/gui/agile-osjs
+
+  agile-nodered:
+    build:
+      context: ../modules/gui/agile-nodered
+
+  agile-security:
+    build:
+      context: ../modules/agile-security
+
+  agile-data:
+    build:
+      context: ../modules/agile-data
+
+  agile-recommender:
+    build:
+      context: ../modules/agile-recommender
