@@ -219,3 +219,10 @@ services:
  #   environment:
  #     - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/.agile_bus/agile_bus_socket
  #   command: python3 ge_link_bulb/ge_link_bulb_device.py
+
+  agile-kura:
+    container_name: agile-kura
+    image: mmaiero88/kura-armv7hf:3.0.0-M1
+    #build: apps/kura
+    ports:
+      - 1234:1234/tcp
