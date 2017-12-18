@@ -12,6 +12,13 @@ language: node_js
 node_js:
   - "7"
 
+env:
+  global:
+    - COMPONENT=agile-stack
+    - DOCKER_CACHE_FILE=/home/travis/docker-cache/cache.tar.gz
+  matrix:
+    - VERSIONIST=true
+
 before_install:
   - source <(curl -s https://raw.githubusercontent.com/Agile-IoT/agile-ci-scripts/master/agile-ci-functions.sh)
 
