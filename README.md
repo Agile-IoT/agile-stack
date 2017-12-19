@@ -59,6 +59,8 @@ Done!
 
 * Burn the image to an SD card. There are a variety of ways to do this. I suggest using [etcher](https://etcher.io/).
 
+**Windows OS**: Before trying to find the Raspberry Pi device, the host computer network connection must be configured to enable network discovery of other devices. For Windows OS > 7 the "Private" profile should be OK. The "Public" networking profile will not allow network discovery so the resin.local device will not be found. These settings can be found in the Network and Sharing Center -> Change advanced sharing settings
+
 * Boot the device and check if you can connect to it by running:
 
 ```
