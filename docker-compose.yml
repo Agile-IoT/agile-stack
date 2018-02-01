@@ -157,7 +157,7 @@ services:
 
   agile-security:
     container_name: agile-security
-    image: agileiot/agile-security-$AGILE_ARCH:v3.3.0
+    image: agileiot/agile-security-$AGILE_ARCH:v3.5.1
     #build: apps/agile-security
     hostname: agile-security
     volumes:
