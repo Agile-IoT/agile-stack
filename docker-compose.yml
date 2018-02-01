@@ -130,7 +130,7 @@ services:
 
   agile-osjs:
     container_name: agile-osjs
-    image: agileiot/agile-osjs-$AGILE_ARCH:v0.2.0
+    image: agileiot/agile-osjs-$AGILE_ARCH:v0.2.1
     # build: apps/agile-osjs
     depends_on:
       - agile-core
