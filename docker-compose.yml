@@ -1,9 +1,9 @@
 #-------------------------------------------------------------------------------
 # Copyright (C) 2017 Resin.io, UNI Passau, FBK.
 # All rights reserved. This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v1.0
+# are made available under the terms of the Eclipse Public License 2.0
 # which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v10.html
+# https://www.eclipse.org/legal/epl-2.0/
 #
 # Contributors:
 #     Resin.io, UNI Passau, FBK - initial API and implementation
@@ -21,7 +21,7 @@ services:
 
   agile-dbus:
     container_name: agile-dbus
-    image: agileiot/agile-dbus-$AGILE_ARCH:v0.1.0
+    image: agileiot/agile-dbus-$AGILE_ARCH:v0.1.1
     # build: apps/agile-dbus
     restart: always
     volumes:
@@ -130,7 +130,7 @@ services:
 
   agile-osjs:
     container_name: agile-osjs
-    image: agileiot/agile-osjs-$AGILE_ARCH:v0.2.0
+    image: agileiot/agile-osjs-$AGILE_ARCH:v0.2.1
     # build: apps/agile-osjs
     depends_on:
       - agile-core
@@ -157,7 +157,7 @@ services:
 
   agile-security:
     container_name: agile-security
-    image: agileiot/agile-security-$AGILE_ARCH:v3.3.0
+    image: agileiot/agile-security-$AGILE_ARCH:v3.5.1
     #build: apps/agile-security
     hostname: agile-security
     volumes:
@@ -175,7 +175,7 @@ services:
 
   agile-data:
     container_name: agile-data
-    image: agileiot/agile-data-$AGILE_ARCH:v0.0.9
+    image: agileiot/agile-data-$AGILE_ARCH:v0.0.12
     hostname: agile-data
     # build: apps/agile-data
     restart: always
@@ -189,7 +189,7 @@ services:
 
   agile-recommender:
     container_name: agile-recommender
-    image: agileiot/agile-recommender-$AGILE_ARCH:v0.3.4
+    image: agileiot/agile-recommender-$AGILE_ARCH:v0.3.5
     # build: apps/agile-recommender
     restart: always
     ports:
