@@ -1,0 +1,107 @@
+#-------------------------------------------------------------------------------
+# Copyright (C) 2017 Resin.io, UNI Passau, FBK.
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Eclipse Public License 2.0
+# which accompanies this distribution, and is available at
+# https://www.eclipse.org/legal/epl-2.0/
+#
+# Contributors:
+#     Resin.io, UNI Passau, FBK - initial API and implementation
+#-------------------------------------------------------------------------------
+version: '2'
+
+# Usage:
+# rename this file to docker-compose.override.yml
+# - uncomment the line below containing "services"
+# - uncomment services which you would like to build locally
+# - (optional) uncomment the "image" line to build an image with the tag "dev"
+# - (optional): uncomment build args to build for other architectures
+# - (optional): override other parameters
+# - (optional): add new services
+
+services:
+
+  agile-dbus:
+    build:
+      context: ../modules/agile-dbus
+      args:
+        - BASEIMAGE_BUILD=resin/amd64-alpine
+
+  agile-core:
+    build:
+      context: ../modules/agile-core
+      args:
+        - BASEIMAGE_BUILD=agileiot/intel-nuc-zulujdk:8-jdk-maven
+        - BASEIMAGE_DEPLOY=agileiot/intel-nuc-zulujdk:8-jre
+
+  agile-devicemanager:
+    build:
+      context: ../modules/agile-core
+      args:
+        - BASEIMAGE_BUILD=agileiot/intel-nuc-zulujdk:8-jdk-maven
+        - BASEIMAGE_DEPLOY=agileiot/intel-nuc-zulujdk:8-jre
+
+  agile-protocolmanager:
+    build:
+      context: ../modules/agile-core
+      args:
+        - BASEIMAGE_BUILD=agileiot/intel-nuc-zulujdk:8-jdk-maven
+        - BASEIMAGE_DEPLOY=agileiot/intel-nuc-zulujdk:8-jre
+
+  agile-devicefactory:
+    build:
+      context: ../modules/agile-core
+      args:
+        - BASEIMAGE_BUILD=agileiot/intel-nuc-zulujdk:8-jdk-maven
+        - BASEIMAGE_DEPLOY=agileiot/intel-nuc-zulujdk:8-jre
+
+  agile-ble:
+    build:
+      context: ../modules/protocol/agile-ble
+      args:
+        - BASEIMAGE_BUILD=agileiot/intel-nuc-zulujdk:8-jdk-maven
+        - BASEIMAGE_DEPLOY=agileiot/intel-nuc-zulujdk:8-jre
+
+  agile-dummy:
+    build:
+      context: ../modules/protocol/agile-dummy
+      args:
+        - BASEIMAGE_BUILD=agileiot/intel-nuc-zulujdk:8-jdk-maven
+        - BASEIMAGE_DEPLOY=agileiot/intel-nuc-zulujdk:8-jre
+
+  agile-ui:
+    build:
+      context: ../modules/gui/agile-ui
+      args:
+        - BASEIMAGE_BUILD=resin/intel-nuc-node:7.8.0-20170506
+
+  agile-osjs:
+    build:
+      context: ../modules/gui/agile-osjs
+      args:
+        - BASEIMAGE_BUILD=resin/intel-nuc-node:7.8.0-20170506
+
+  agile-nodered:
+    build:
+      context: ../modules/gui/agile-nodered
+      args:
+        - BASEIMAGE_BUILD=resin/intel-nuc-node:7.8.0-20170506
+
+  agile-security:
+    build:
+      context: ../modules/agile-security
+      args:
+        - BASEIMAGE_BUILD=resin/intel-nuc-node:7.8.0-20170506
+
+  agile-data:
+    build:
+      context: ../modules/agile-data
+      args:
+        - BASEIMAGE_BUILD=resin/intel-nuc-node:7.8.0-20170506
+
+  agile-recommender:
+    build:
+      context: ../modules/agile-recommender
+      args:
+        - BASEIMAGE_BUILD=agileiot/intel-nuc-zulujdk:8-jdk-maven
+        - BASEIMAGE_DEPLOY=agileiot/intel-nuc-zulujdk:8-jre
