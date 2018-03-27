@@ -1,14 +1,3 @@
-<!--
-# Copyright (C) 2017 Resin.io, UNI Passau, FBK.
-# All rights reserved. This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License 2.0
-# which accompanies this distribution, and is available at
-# https://www.eclipse.org/legal/epl-2.0/
-# 
-# Contributors:
-#     Resin.io, UNI Passau, FBK - initial API and implementation
--->
-
 # Change Log
 
 All notable changes to this project will be documented in this file

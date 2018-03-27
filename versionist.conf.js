@@ -43,7 +43,7 @@ module.exports = {
   // Always add the entry to the top of the Changelog, below the header.
   addEntryToChangelog: {
     preset: 'prepend',
-    fromLine: 17
+    fromLine: 6
   },
 
   // Only include a commit when there is a footer tag of 'change-type'.
