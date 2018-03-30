@@ -177,7 +177,7 @@ services:
 
   agile-data:
     container_name: agile-data
-    image: agileiot/agile-data-$AGILE_ARCH:v0.0.14
+    image: agileiot/agile-data-$AGILE_ARCH:v0.1.1
     hostname: agile-data
     # build: apps/agile-data
     restart: always
