@@ -5,6 +5,8 @@
  *which accompanies this distribution, and is available at
  *https://www.eclipse.org/legal/epl-2.0/
  *
+ *SPDX-License-Identifier: EPL-2.0
+ *
  *Contributors:
  *    Create-Net / FBK - initial API and implementation
  ******************************************************************************/
@@ -41,7 +43,7 @@ module.exports = {
   // Always add the entry to the top of the Changelog, below the header.
   addEntryToChangelog: {
     preset: 'prepend',
-    fromLine: 17
+    fromLine: 6
   },
 
   // Only include a commit when there is a footer tag of 'change-type'.
