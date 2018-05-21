@@ -15,6 +15,7 @@ version: '2'
 services:
 
   agile-dbus:
+    container_name: agile-dbus
     image: agileiot/agile-dbus-armv7l:v0.1.4
     restart: always
     volumes:
