@@ -144,17 +144,25 @@ services:
     volumes:
       - /etc/hostname:/etc/hostname
 
+  #
+  # https://github.com/fchauveau/rpi-domoticz-docker/issues/4
+  #
   agile-nodered:
-    image: agileiot/agile-nodered-$AGILE_ARCH:v0.3.2
+    #image: agileiot/agile-nodered-$AGILE_ARCH:v0.3.2
     container_name: agile-nodered
-    # build: apps/agile-nodered
+    build: apps/agile-nodered
     hostname: agile-nodered
     volumes:
       - $DATA/nodered:/opt/secure-nodered/.nodered/
+      - /opt/vc:/opt/vc:ro
     ports:
       - 1880:1880/tcp
     links:
       - agile-core:agile
+    devices:
+      - /dev/vchiq:/dev/vchiq
+    environment:
+      - LD_LIBRARY_PATH=/opt/vc/lib
     restart: always
 
   agile-security:
