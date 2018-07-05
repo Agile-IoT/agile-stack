@@ -197,6 +197,20 @@ services:
     ports:
       - 8090:8090/tcp
 
+  agile-makers-shield-software:
+    container_name: agile-makers-shield-software
+    image: agileiot/agile-makers-shield-software-$AGILE_ARCH:master
+    build: ../modules/protocol/agile-makers-shield-software
+    depends_on:
+      - agile-dbus
+#    devices:
+#      - dev/ttyUSB0:/dev/ttyUSB0
+    privileged: true
+    volumes:
+      - $DBUS_SESSION_SOCKET_DIR:/usr/src/app/.agile_bus
+    environment:
+      - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/.agile_bus/agile_bus_socket
+
  # agile-zb:
  #   container_name: agile-zb
  #   image: agileiot/agile-zb-$AGILE_ARCH
