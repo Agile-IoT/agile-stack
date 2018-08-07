@@ -32,7 +32,7 @@ services:
   agile-devicemanager:
     command: [ "bash", "/usr/src/app/scripts/start.sh", "DeviceManager" ]
     container_name: agile-devicemanager
-    image: agileiot/agile-core-$AGILE_ARCH:v0.2.17
+    image: agileiot/agile-core-$AGILE_ARCH:v0.2.22
     # build: apps/agile-core
     depends_on:
       - agile-dbus
@@ -47,7 +47,7 @@ services:
   agile-protocolmanager:
     command: [ "bash", "/usr/src/app/scripts/start.sh", "ProtocolManager" ]
     container_name: agile-protocolmanager
-    image: agileiot/agile-core-$AGILE_ARCH:v0.2.17
+    image: agileiot/agile-core-$AGILE_ARCH:v0.2.22
     # build: apps/agile-core
     depends_on:
       - agile-dbus
@@ -62,7 +62,7 @@ services:
   agile-devicefactory:
     command: [ "bash", "/usr/src/app/scripts/start.sh", "DeviceFactory" ]
     container_name: agile-devicefactory
-    image: agileiot/agile-core-$AGILE_ARCH:v0.2.17
+    image: agileiot/agile-core-$AGILE_ARCH:v0.2.22
     # build: apps/agile-core
     depends_on:
       - agile-dbus
@@ -78,7 +78,7 @@ services:
     command: [ "bash", "/usr/src/app/scripts/start.sh", "http" ]
     container_name: agile-core
     # build: apps/agile-core
-    image: agileiot/agile-core-$AGILE_ARCH:v0.2.17
+    image: agileiot/agile-core-$AGILE_ARCH:v0.2.22
     depends_on:
       - agile-dbus
       - agile-devicemanager
@@ -95,7 +95,7 @@ services:
 
   agile-ble:
     container_name: agile-ble
-    image: agileiot/agile-ble-$AGILE_ARCH:v0.1.11
+    image: agileiot/agile-ble-$AGILE_ARCH:v0.1.15
     # build: apps/agile-ble
     depends_on:
       - agile-dbus
@@ -110,7 +110,7 @@ services:
 
   agile-dummy:
     container_name: agile-dummy
-    image: agileiot/agile-dummy-$AGILE_ARCH:v0.3.1
+    image: agileiot/agile-dummy-$AGILE_ARCH:v0.3.3
     # build: apps/agile-dummy-protocol
     depends_on:
       - agile-dbus
@@ -132,7 +132,7 @@ services:
 
   agile-osjs:
     container_name: agile-osjs
-    image: agileiot/agile-osjs-$AGILE_ARCH:v0.4.0
+    image: agileiot/agile-osjs-$AGILE_ARCH:v0.4.1
     # build: apps/agile-osjs
     depends_on:
       - agile-core
@@ -145,7 +145,7 @@ services:
       - /etc/hostname:/etc/hostname
 
   agile-nodered:
-    image: agileiot/agile-nodered-$AGILE_ARCH:v0.3.2
+    image: agileiot/agile-nodered-$AGILE_ARCH:v0.4.3
     container_name: agile-nodered
     # build: apps/agile-nodered
     hostname: agile-nodered
@@ -191,7 +191,7 @@ services:
 
   agile-recommender:
     container_name: agile-recommender
-    image: agileiot/agile-recommender-$AGILE_ARCH:v0.3.7
+    image: agileiot/agile-recommender-$AGILE_ARCH:v0.3.8
     # build: apps/agile-recommender
     restart: always
     ports:
