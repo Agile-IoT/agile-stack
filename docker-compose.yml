@@ -23,7 +23,7 @@ services:
 
   agile-devicemanager:
     command: [ "bash", "/usr/src/app/scripts/start.sh", "DeviceManager" ]
-    image: agileiot/agile-core-armv7l:v0.2.17
+    image: agileiot/agile-core-armv7l:v0.2.22
     depends_on:
       - agile-dbus
     volumes:
@@ -36,7 +36,7 @@ services:
 
   agile-protocolmanager:
     command: [ "bash", "/usr/src/app/scripts/start.sh", "ProtocolManager" ]
-    image: agileiot/agile-core-armv7l:v0.2.17
+    image: agileiot/agile-core-armv7l:v0.2.22
     depends_on:
       - agile-dbus
     volumes:
@@ -49,7 +49,7 @@ services:
 
   agile-devicefactory:
     command: [ "bash", "/usr/src/app/scripts/start.sh", "DeviceFactory" ]
-    image: agileiot/agile-core-armv7l:v0.2.17
+    image: agileiot/agile-core-armv7l:v0.2.22
     depends_on:
       - agile-dbus
     volumes:
@@ -62,7 +62,7 @@ services:
 
   agile-core:
     command: [ "bash", "/usr/src/app/scripts/start.sh", "http" ]
-    image: agileiot/agile-core-armv7l:v0.2.17
+    image: agileiot/agile-core-armv7l:v0.2.22
     depends_on:
       - agile-dbus
       - agile-devicemanager
@@ -78,7 +78,7 @@ services:
     privileged: true
 
   agile-ble:
-    image: agileiot/agile-ble-armv7l:v0.1.11
+    image: agileiot/agile-ble-armv7l:v0.1.15
     depends_on:
       - agile-dbus
     volumes:
@@ -96,7 +96,7 @@ services:
     command: bash -c "mkdir -p /var/run/dbus && rm -f /var/run/dbus/pid && dbus-daemon --system && hciconfig hci0 down && hciconfig hci0 up && /usr/local/libexec/bluetooth/bluetoothd -E & scripts/start.sh BLE"
 
   agile-dummy:
-    image: agileiot/agile-dummy-armv7l:v0.3.1
+    image: agileiot/agile-dummy-armv7l:v0.3.3
     depends_on:
       - agile-dbus
     volumes:
@@ -106,7 +106,7 @@ services:
     restart: always
 
   agile-ui:
-    image: agileiot/agile-ui-armv7l:v2.5.1
+    image: agileiot/agile-ui-armv7l:v2.5.2
     restart: always
     depends_on:
       - agile-core
@@ -114,7 +114,7 @@ services:
       - 2000:1337/tcp
 
   agile-osjs:
-    image: agileiot/agile-osjs-armv7l:v0.4.0
+    image: agileiot/agile-osjs-armv7l:v0.4.1
     depends_on:
       - agile-core
       - agile-security
@@ -128,7 +128,7 @@ services:
     command: bash -c 'if [ -z "$AGILE_HOST" -a -n "$RESIN_DEVICE_UUID" ]; then export AGILE_HOST="${RESIN_DEVICE_UUID:0:7}.local"; ./start.sh; else ./start.sh; fi'
 
   agile-nodered:
-    image: agileiot/agile-nodered-armv7l:v0.3.2
+    image: agileiot/agile-nodered-armv7l:v0.4.3
     hostname: agile-nodered
     volumes:
       - agile-data-nodered:/opt/secure-nodered/.nodered/
@@ -139,7 +139,7 @@ services:
     restart: always
 
   agile-security:
-    image: agileiot/agile-security-armv7l:v3.7.3
+    image: agileiot/agile-security-armv7l:v3.8.0
     hostname: agile-security
     volumes:
       - agile-data-security-idm-conf:/root/idm.conf
@@ -155,7 +155,7 @@ services:
     command: bash -c 'if [ -z "$AGILE_HOST" -a -n "$RESIN_DEVICE_UUID" ]; then export AGILE_HOST="${RESIN_DEVICE_UUID:0:7}.local"; ./Start.sh; else ./Start.sh; fi'
 
   agile-data:
-    image: agileiot/agile-data-armv7l:v0.1.3
+    image: agileiot/agile-data-armv7l:v0.2.1
     hostname: agile-data
     restart: always
     environment:
@@ -167,7 +167,7 @@ services:
       - 1338:1338/tcp
 
   agile-recommender:
-    image: agileiot/agile-recommender-armv7l:v0.3.7
+    image: agileiot/agile-recommender-armv7l:v0.3.8
     hostname: agile-recommender
     restart: always
     ports:
