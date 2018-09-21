@@ -32,7 +32,7 @@ services:
   agile-devicefactory:
     command: [ "bash", "/usr/src/app/scripts/start.sh", "DeviceFactory" ]
     container_name: agile-devicefactory
-    image: agileiot/agile-core-$AGILE_ARCH:v0.2.17
+    image: agileiot/agile-core-$AGILE_ARCH:v0.2.22
     # build: apps/agile-core
     depends_on:
       - agile-dbus
@@ -64,7 +64,7 @@ services:
 
   agile-ble:
     container_name: agile-ble
-    image: agileiot/agile-ble-$AGILE_ARCH:v0.1.11
+    image: agileiot/agile-ble-$AGILE_ARCH:v0.1.15
     # build: apps/agile-ble
     depends_on:
       - agile-dbus
@@ -79,7 +79,7 @@ services:
 
   agile-dummy:
     container_name: agile-dummy
-    image: agileiot/agile-dummy-$AGILE_ARCH:v0.3.1
+    image: agileiot/agile-dummy-$AGILE_ARCH:v0.3.3
     # build: apps/agile-dummy-protocol
     depends_on:
       - agile-dbus
@@ -91,7 +91,7 @@ services:
 
   agile-ui:
     container_name: agile-ui
-    image: agileiot/agile-ui-$AGILE_ARCH:v2.5.1
+    image: agileiot/agile-ui-$AGILE_ARCH:v2.5.2
     # build: apps/agile-ui
     restart: always
     depends_on:
@@ -101,7 +101,7 @@ services:
 
   agile-osjs:
     container_name: agile-osjs
-    image: agileiot/agile-osjs-$AGILE_ARCH:v0.4.0
+    image: agileiot/agile-osjs-$AGILE_ARCH:v0.4.1
     # build: apps/agile-osjs
     depends_on:
       - agile-core
@@ -114,7 +114,7 @@ services:
       - /etc/hostname:/etc/hostname
 
   agile-nodered:
-    image: agileiot/agile-nodered-$AGILE_ARCH:v0.3.2
+    image: agileiot/agile-nodered-$AGILE_ARCH:v0.4.3
     container_name: agile-nodered
     # build: apps/agile-nodered
     hostname: agile-nodered
@@ -128,7 +128,7 @@ services:
 
   agile-security:
     container_name: agile-security
-    image: agileiot/agile-security-$AGILE_ARCH:v3.7.3
+    image: agileiot/agile-security-$AGILE_ARCH:v3.8.0
     #build: apps/agile-security
     hostname: agile-security
     volumes:
@@ -146,7 +146,7 @@ services:
 
   agile-data:
     container_name: agile-data
-    image: agileiot/agile-data-$AGILE_ARCH:v0.1.3
+    image: agileiot/agile-data-$AGILE_ARCH:v0.2.1
     hostname: agile-data
     # build: apps/agile-data
     restart: always
@@ -160,7 +160,7 @@ services:
 
   agile-recommender:
     container_name: agile-recommender
-    image: agileiot/agile-recommender-$AGILE_ARCH:v0.3.7
+    image: agileiot/agile-recommender-$AGILE_ARCH:v0.3.8
     # build: apps/agile-recommender
     restart: always
     ports:

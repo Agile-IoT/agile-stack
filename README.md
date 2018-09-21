@@ -116,16 +116,16 @@ However when we are developing a new or existing service will, of course, want t
 
 #### Developing with an existing service:
 
-* Clone the source to the `/apps` directory
+* Clone the source e.g. to the `./apps` directory (note that if you use agile-dev, these sources are already available in `../modules`).
 
 ```
-$ cd /apps && git clone https://github.com/Agile-IoT/agile-core.git
+$ mkdir -p ./apps && cd ./apps && git clone https://github.com/Agile-IoT/agile-core.git
 ```
 
 * Then tell `docker-compose` to build from source by commenting out the image key and uncommenting the build key.
 ```
 agile-core:
-  # image: agileiot/agile-core-armv7l
+  image: agileiot/agile-core-armv7l
   build: apps/agile-core
 ```
 * Deploy :tada
@@ -139,9 +139,9 @@ The docker engine will cache builds so things will be a lot quicker after the fi
 
 It follows the same procedure as above however you'll need to create a new entry in the `docker-compose.yml`.
 
-* Clone your source to `/apps` & add a Dockerfile if you don't already have one.
+* Clone your source to `./apps` & add a Dockerfile if you don't already have one.
 ```
-cd /apps && git clone https://github.com/Agile-IoT/agile-my-service.git
+mkdir -p ./apps && cd ./apps && git clone https://github.com/Agile-IoT/agile-my-service.git
 ```
 
 * Add an entry for the new service to `docker-compose.yml`. The simplest configuration would be. You can read more about docker-compose options [here](https://docs.docker.com/compose/compose-file/):
