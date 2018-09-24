@@ -145,7 +145,7 @@ services:
       - /etc/hostname:/etc/hostname
 
   agile-nodered:
-    image: agileiot/agile-nodered-$AGILE_ARCH:v0.4.3
+    image: agileiot/agile-nodered-$AGILE_ARCH:feature-readtemp
     container_name: agile-nodered
     # build: apps/agile-nodered
     hostname: agile-nodered
@@ -155,6 +155,10 @@ services:
       - 1880:1880/tcp
     links:
       - agile-core:agile
+    environment:
+      - LD_LIBRARY_PATH=/opt/vc/lib
+    devices:
+      - /dev/vchiq:/dev/vchiq
     restart: always
 
   agile-security:
