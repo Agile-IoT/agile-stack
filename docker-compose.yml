@@ -29,36 +29,6 @@ services:
     volumes:
       - $DBUS_SESSION_SOCKET_DIR:/usr/src/app/.agile_bus
 
-  agile-devicemanager:
-    command: [ "bash", "/usr/src/app/scripts/start.sh", "DeviceManager" ]
-    container_name: agile-devicemanager
-    image: agileiot/agile-core-$AGILE_ARCH:v0.2.22
-    # build: apps/agile-core
-    depends_on:
-      - agile-dbus
-    volumes:
-      - $DBUS_SESSION_SOCKET_DIR:/usr/src/app/.agile_bus
-      - $DATA/core/plugins:/usr/src/app/plugins
-    environment:
-      - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/.agile_bus/agile_bus_socket
-    restart: always
-    privileged: true
-
-  agile-protocolmanager:
-    command: [ "bash", "/usr/src/app/scripts/start.sh", "ProtocolManager" ]
-    container_name: agile-protocolmanager
-    image: agileiot/agile-core-$AGILE_ARCH:v0.2.22
-    # build: apps/agile-core
-    depends_on:
-      - agile-dbus
-    volumes:
-      - $DBUS_SESSION_SOCKET_DIR:/usr/src/app/.agile_bus
-      - $DATA/core/plugins:/usr/src/app/plugins
-    environment:
-      - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/.agile_bus/agile_bus_socket
-    restart: always
-    privileged: true
-
   agile-devicefactory:
     command: [ "bash", "/usr/src/app/scripts/start.sh", "DeviceFactory" ]
     container_name: agile-devicefactory
@@ -75,17 +45,16 @@ services:
     privileged: true
 
   agile-core:
-    command: [ "bash", "/usr/src/app/scripts/start.sh", "http" ]
+    command: [ "bash", "/usr/src/app/scripts/start.sh" ]
     container_name: agile-core
     # build: apps/agile-core
-    image: agileiot/agile-core-$AGILE_ARCH:v0.2.22
+    image: agileiot/agile-core-$AGILE_ARCH:launcher
     depends_on:
       - agile-dbus
-      - agile-devicemanager
       - agile-devicefactory
-      - agile-protocolmanager
     volumes:
       - $DBUS_SESSION_SOCKET_DIR:/usr/src/app/.agile_bus
+      - $DATA/core/plugins:/usr/src/app/plugins
     environment:
       - DBUS_SESSION_BUS_ADDRESS=unix:path=/usr/src/app/.agile_bus/agile_bus_socket
     ports:
