@@ -1,6 +1,6 @@
 {
   "name": "agile-stack",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Agile gateway service stack",
   "main": "index.js",
   "scripts": {
